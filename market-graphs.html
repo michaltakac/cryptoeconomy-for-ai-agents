@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent Economy Market Research Visualizations</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .chart-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #2d3748;
+            margin-top: 0;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+        .chart-wrapper {
+            position: relative;
+            height: 400px;
+            margin-top: 20px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Key Statistics Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Current Market (2025)</div>
+                <div class="stat-value">$7B</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Projected 2034</div>
+                <div class="stat-value">$196.6B</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Average CAGR</div>
+                <div class="stat-value">43.8%</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Enterprise Adoption by 2028</div>
+                <div class="stat-value">33%</div>
+            </div>
+        </div>
+
+        <!-- Market Growth Projection Chart -->
+        <div class="chart-container">
+            <h2>AI Agent Economy: Market Growth Projections (2024-2034)</h2>
+            <div class="chart-wrapper">
+                <canvas id="growthChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Current Market Segments Chart -->
+        <div class="chart-container">
+            <h2>Current Market Segments (2025) - Total: $7B</h2>
+            <div class="chart-wrapper">
+                <canvas id="segmentChart"></canvas>
+            </div>
+        </div>
+
+        <!-- CAGR Comparison Chart -->
+        <div class="chart-container">
+            <h2>Growth Rate Projections by Research Firm</h2>
+            <div class="chart-wrapper">
+                <canvas id="cagrChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Adoption Timeline -->
+        <div class="chart-container">
+            <h2>Enterprise Software AI Agent Adoption Timeline</h2>
+            <div class="chart-wrapper">
+                <canvas id="adoptionChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Chart defaults
+        Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
+        
+        // Market Growth Projection
+        const growthCtx = document.getElementById('growthChart').getContext('2d');
+        new Chart(growthCtx, {
+            type: 'line',
+            data: {
+                labels: ['2024', '2025', '2026', '2027', '2028', '2029', '2030', '2031', '2032', '2033', '2034'],
+                datasets: [{
+                    label: 'Conservative Projection (31.68% CAGR)',
+                    data: [5.2, 7, 9.2, 12.1, 15.9, 20.9, 27.5, 36.2, 47.7, 62.8, 82.7],
+                    borderColor: 'rgb(75, 192, 192)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.1)',
+                    tension: 0.4
+                }, {
+                    label: 'Base Case (43.8% CAGR)',
+                    data: [5.2, 7, 10.1, 14.5, 20.9, 30.0, 43.1, 62.0, 89.2, 128.3, 196.6],
+                    borderColor: 'rgb(102, 126, 234)',
+                    backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                    tension: 0.4
+                }, {
+                    label: 'Optimistic (46.2% CAGR)',
+                    data: [5.2, 7, 10.2, 14.9, 21.8, 31.9, 46.6, 68.2, 99.7, 145.8, 367.68],
+                    borderColor: 'rgb(255, 99, 132)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.1)',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': $' + context.parsed.y.toFixed(1) + 'B';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + value + 'B';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Current Market Segments
+        const segmentCtx = document.getElementById('segmentChart').getContext('2d');
+        new Chart(segmentCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Algorithmic Trading Platforms', 'AI Call Centers', 'Supply Chain Automation', 'Crypto Trading Bots', 'Other'],
+                datasets: [{
+                    data: [2.36, 2.1, 1.8, 0.17, 0.57],
+                    backgroundColor: [
+                        'rgba(102, 126, 234, 0.8)',
+                        'rgba(118, 75, 162, 0.8)',
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(255, 159, 64, 0.8)',
+                        'rgba(201, 203, 207, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(102, 126, 234, 1)',
+                        'rgba(118, 75, 162, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(201, 203, 207, 1)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.label || '';
+                                const value = context.parsed || 0;
+                                const total = 7;
+                                const percentage = ((value / total) * 100).toFixed(1);
+                                return label + ': $' + value + 'B (' + percentage + '%)';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // CAGR Comparison
+        const cagrCtx = document.getElementById('cagrChart').getContext('2d');
+        new Chart(cagrCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Emergen Research', 'Market.us', 'Grand View Research'],
+                datasets: [{
+                    label: 'CAGR %',
+                    data: [31.68, 43.8, 46.2],
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(102, 126, 234, 0.8)',
+                        'rgba(255, 99, 132, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(102, 126, 234, 1)',
+                        'rgba(255, 99, 132, 1)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return 'CAGR: ' + context.parsed.y + '%';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 50,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Adoption Timeline
+        const adoptionCtx = document.getElementById('adoptionChart').getContext('2d');
+        new Chart(adoptionCtx, {
+            type: 'bar',
+            data: {
+                labels: ['2024', '2025', '2026', '2027', '2028', '2029', '2030'],
+                datasets: [{
+                    label: 'Enterprise Software with AI Agents (%)',
+                    data: [0.5, 1, 3, 10, 33, 50, 65],
+                    backgroundColor: 'rgba(102, 126, 234, 0.8)',
+                    borderColor: 'rgba(102, 126, 234, 1)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.parsed.y + '% of enterprise software';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 70,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
