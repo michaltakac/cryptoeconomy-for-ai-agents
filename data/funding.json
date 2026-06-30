@@ -31,6 +31,12 @@
       "note": "Agent-native L1; verified via PayPal Ventures release.",
       "url": "https://paypal.vc/news/news-details/2025/The-state-of-agentic-commerce-and-why-we-invested-in-Kite-AI-2025-LroAXfplpA/default.aspx",
       "status": "qualitative"
-    }
+    },
+    { "company": "Kite", "round": "Series A", "amount_usd_m": 18, "cumulative_usd_m": 33, "lead": "PayPal Ventures, General Catalyst", "date": "2025-09-02", "url": "https://newsroom.paypal-corp.com/2025-09-02-Kite-Raises-18M-in-Series-A-Funding-To-Enforce-Trust-in-the-Agentic-Web", "status": "verified", "note": "Agent-payments L1; Coinbase Ventures joined a follow-on. Added by PRO-20." },
+    { "company": "Catena Labs", "round": "Seed + Series A", "amount_usd_m": 48, "breakdown": "Seed $18M (2025-05, a16z crypto) + Series A $30M (2026-05, Acrew)", "date": "2025-05 / 2026-05", "url": "https://fortune.com/2026/05/20/catena-labs-series-a-sean-neville-ai-native-bank/", "status": "verified", "note": "AI-native bank; two distinct rounds, do not double-count. Added by PRO-20." },
+    { "company": "Nous Research", "round": "Series A", "amount_usd_m": 50, "valuation": "$1B token", "lead": "Paradigm", "date": "2025-04", "url": "https://fortune.com/crypto/2025/04/25/paradigm-nous-research-crypto-ai-venture-capital-deepseek-openai-blockchain/", "status": "verified", "note": "Added by PRO-20." },
+    { "company": "Sentient", "round": "Seed", "amount_usd_m": 85, "lead": "Founders Fund, Pantera, Framework", "date": "2024-07", "url": "https://www.coindesk.com/business/2024/07/02/peter-thiels-founders-fund-leads-85m-seed-investment-into-open-source-ai-platform-sentient", "status": "verified", "note": "Added by PRO-20." },
+    { "company": "Story Protocol (PIP Labs)", "round": "Series B", "amount_usd_m": 80, "valuation": "$2.25B", "cumulative_usd_m": 140, "lead": "a16z crypto", "date": "2024-08", "url": "https://www.coindesk.com/business/2024/08/21/story-protocol-developer-raises-80m-series-b-led-by-a16z-for-intellectual-property-chain", "status": "verified", "note": "Added by PRO-20." },
+    { "company": "Skyfire", "round": "Seed", "amount_usd_m": 8.5, "cumulative_usd_m": 9.5, "lead": "Brevan Howard Digital, Circle, Ripple", "date": "2024-08", "url": "https://www.finextra.com/newsarticle/44621/skyfire-raises-85m-to-bring-autonomous-payments-to-ai-agents", "status": "verified", "note": "Agent payments. Added by PRO-20." }
   ]
 }

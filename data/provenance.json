@@ -129,6 +129,45 @@
     { "id": "gartner-adoption-2025", "label": "Enterprise agentic-AI adoption today (<1%)", "value": 0.01, "unit": "share",
       "status": "legacy_unverified", "source": "Sept-2025 doc (commonly attributed to Gartner)", "method": "Re-source against a primary Gartner release before publish.", "retrieved": null, "tier": "snapshot" },
     { "id": "gartner-adoption-2028", "label": "Enterprise agentic-AI adoption by 2028 (~33%)", "value": 0.33, "unit": "share",
-      "status": "legacy_unverified", "source": "Sept-2025 doc (Gartner-attributed)", "method": "Re-source before publish.", "retrieved": null, "tier": "snapshot" }
+      "status": "legacy_unverified", "source": "Sept-2025 doc (Gartner-attributed)", "method": "Re-source before publish.", "retrieved": null, "tier": "snapshot" },
+
+    { "id": "_contributed_by_pro20", "label": "Marker: entries below added/re-sourced by Workstream B (PRO-20 Market Research) on 2026-06-30; they supersede the gartner-adoption-* and funding-kite legacy/qualitative rows.", "value": null, "unit": "meta", "status": "verified", "source": "PRO-20", "retrieved": "2026-06-30", "tier": "snapshot" },
+
+    { "id": "gartner-share-2028-verified", "label": "Enterprise apps including agentic AI by 2028 (33%, from <1% in 2024)", "value": {"share_2028": 0.33, "share_2024": 0.01}, "unit": "share",
+      "status": "verified", "source": "Gartner press release 2025-06-25 (gartner.com 403s bots; via MES Computing mirror)", "method": "33%/2028 verified on mirror; '<1% in 2024' tail directional", "url": "https://www.mescomputing.com/news/ai/5-predictions-about-agentic-ai-from-gartner", "retrieved": "2026-06-30", "tier": "snapshot", "supersedes": ["gartner-adoption-2025","gartner-adoption-2028"] },
+    { "id": "gartner-decisions-2028", "label": "Day-to-day work decisions made autonomously via agentic AI by 2028", "value": 0.15, "unit": "share",
+      "status": "verified", "source": "Gartner press release 2025-06-25 (via MES Computing mirror)", "url": "https://www.mescomputing.com/news/ai/5-predictions-about-agentic-ai-from-gartner", "retrieved": "2026-06-30", "tier": "snapshot" },
+    { "id": "gartner-cancel-2027", "label": "Agentic-AI projects cancelled by end-2027 (counter-signal)", "value": ">0.40", "unit": "share",
+      "status": "verified", "source": "Gartner press release 2025-06-25 (via Predictive Analytics World mirror)", "url": "https://www.predictiveanalyticsworld.com/machinelearningtimes/gartner-predicts-over-40-of-agentic-ai-projects-will-be-canceled-by-end-of-2027/13875/", "retrieved": "2026-06-30", "tier": "snapshot" },
+    { "id": "mckinsey-scaling-agents", "label": "Orgs scaling >=1 agentic-AI system (depth: <=10% per function)", "value": {"scaling": 0.23, "experimenting": 0.39, "max_per_function": 0.10}, "unit": "share",
+      "status": "verified", "source": "McKinsey State of AI 2025 (Nov 2025; via Forbes mirror)", "url": "https://www.forbes.com/sites/josipamajic/2026/03/22/10-of-enterprise-functions-use-ai-agents-mckinsey-finds/", "retrieved": "2026-06-30", "tier": "snapshot" },
+    { "id": "deloitte-agent-governance", "label": "Orgs with mature agentic-AI governance (2026); 2027 usage expectations", "value": {"mature_governance": 0.21, "by_2027_moderate": 0.74, "by_2027_extensive": 0.23, "by_2027_full": 0.05}, "unit": "share",
+      "status": "verified", "source": "Deloitte State of GenAI in the Enterprise (2026-04-24; 3,235 leaders/24 countries)", "url": "https://www.deloitte.com/us/en/insights/topics/emerging-technologies/ai-agents-scaling-faster.html", "retrieved": "2026-06-30", "tier": "snapshot" },
+
+    { "id": "x402-tx-cumulative", "label": "x402 cumulative on-chain transactions on Base (Q1 2026)", "value": "100000000+", "unit": "tx",
+      "status": "verified", "source": "Chainalysis (pub 2026-06-03)", "method": "Real but heavily inflated by PING meme-coin pay-to-mint; USD volume intentionally NOT asserted (see x402_onchain_volume snapshot_pending).", "url": "https://www.chainalysis.com/blog/x402-agentic-payments-adoption/", "retrieved": "2026-06-30", "tier": "snapshot" },
+
+    { "id": "funding-kite-amount", "label": "Kite Series A amount (upgrades funding-kite from qualitative)", "value": {"series_a_usd_m": 18, "cumulative_usd_m": 33}, "unit": "USD_M",
+      "status": "verified", "source": "PayPal newsroom (2025-09-02); lead PayPal Ventures + General Catalyst; Coinbase Ventures follow-on", "url": "https://newsroom.paypal-corp.com/2025-09-02-Kite-Raises-18M-in-Series-A-Funding-To-Enforce-Trust-in-the-Agentic-Web", "retrieved": "2026-06-30", "tier": "snapshot", "supersedes": ["funding-kite"] },
+    { "id": "funding-catena", "label": "Catena Labs (AI-native bank) Seed + Series A — two distinct rounds", "value": {"seed_usd_m": 18, "series_a_usd_m": 30, "cumulative_usd_m": 48}, "unit": "USD_M",
+      "status": "verified", "source": "Fortune (2026-05-20); Seed 2025-05 a16z crypto, Series A 2026-05 Acrew", "method": "Do not merge/double-count the two rounds.", "url": "https://fortune.com/2026/05/20/catena-labs-series-a-sean-neville-ai-native-bank/", "retrieved": "2026-06-30", "tier": "snapshot" },
+    { "id": "funding-nous", "label": "Nous Research Series A", "value": {"usd_m": 50, "valuation": "$1B token"}, "unit": "USD_M",
+      "status": "verified", "source": "Fortune Crypto (2025-04); lead Paradigm", "url": "https://fortune.com/crypto/2025/04/25/paradigm-nous-research-crypto-ai-venture-capital-deepseek-openai-blockchain/", "retrieved": "2026-06-30", "tier": "snapshot" },
+    { "id": "funding-sentient", "label": "Sentient Seed", "value": {"usd_m": 85}, "unit": "USD_M",
+      "status": "verified", "source": "CoinDesk (2024-07); Founders Fund, Pantera, Framework", "url": "https://www.coindesk.com/business/2024/07/02/peter-thiels-founders-fund-leads-85m-seed-investment-into-open-source-ai-platform-sentient", "retrieved": "2026-06-30", "tier": "snapshot" },
+    { "id": "funding-story", "label": "Story Protocol (PIP Labs) Series B", "value": {"usd_m": 80, "valuation": "$2.25B", "cumulative_usd_m": 140}, "unit": "USD_M",
+      "status": "verified", "source": "CoinDesk (2024-08); lead a16z crypto", "url": "https://www.coindesk.com/business/2024/08/21/story-protocol-developer-raises-80m-series-b-led-by-a16z-for-intellectual-property-chain", "retrieved": "2026-06-30", "tier": "snapshot" },
+    { "id": "funding-skyfire", "label": "Skyfire (agent payments) Seed", "value": {"usd_m": 8.5, "cumulative_usd_m": 9.5}, "unit": "USD_M",
+      "status": "verified", "source": "Finextra (2024-08); Brevan Howard Digital, Circle, Ripple", "url": "https://www.finextra.com/newsarticle/44621/skyfire-raises-85m-to-bring-autonomous-payments-to-ai-agents", "retrieved": "2026-06-30", "tier": "snapshot" },
+    { "id": "funding-allai-2025", "label": "Total private AI venture funding 2025 (ALL-AI, not agent-specific)", "value": 225.8, "unit": "USD_B",
+      "status": "verified", "source": "CB Insights State of AI 2025", "method": "No verifiable crypto+AI-agent subtotal exists — do not present this as agent-only.", "url": "https://www.cbinsights.com/research/report/ai-trends-2025/", "retrieved": "2026-06-30", "tier": "snapshot" },
+
+    { "id": "sentiment-polymarket-bestmodel", "label": "Polymarket: best AI model end-June — Anthropic YES", "value": {"yes_pct": 0.998, "leg_volume_usd": 2445497}, "unit": "prob/USD",
+      "status": "verified", "source": "Polymarket Gamma API (live 2026-06-30)", "url": "https://gamma-api.polymarket.com/events?slug=which-company-has-best-ai-model-end-of-june", "retrieved": "2026-06-30", "tier": "live" },
+
+    { "id": "macro-huang-ces", "label": "Jensen Huang: agentic AI 'multi-trillion-dollar opportunity'", "value": "qualitative", "unit": "quote",
+      "status": "verified", "source": "Fortune — CES 2025 keynote (2025-01-06)", "url": "https://fortune.com/2025/01/06/nvidias-jensen-huang-agentics-ai-robots-blackwell-gpu-ces-2025-toyota-autonomous-vehicles/", "retrieved": "2026-06-30", "tier": "snapshot" },
+    { "id": "macro-economic-impact", "label": "AI economic-impact figures (attribution fix)", "value": {"mckinsey_genai_usd_t_per_yr": "2.6-4.4", "pwc_total_ai_2030_usd_t": 15.7}, "unit": "USD_T",
+      "status": "verified", "source": "McKinsey (June 2023) for $2.6-4.4T/yr gen-AI; PwC 'Sizing the Prize' 2017 for $15.7T total-AI by 2030", "method": "The '$15T' figure commonly misattributed to McKinsey is actually PwC's total-AI estimate. Neither is agent-specific.", "url": "https://www.mckinsey.com/capabilities/tech-and-ai/our-insights/the-economic-potential-of-generative-ai-the-next-productivity-frontier", "retrieved": "2026-06-30", "tier": "snapshot" }
   ]
 }

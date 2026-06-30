@@ -19,7 +19,7 @@ The goal of this repository is to provide a thorough understanding of:
 - Infrastructure protocols (L402/x402, ERC-8004, ERC-8001)
 - Application layer implementations
 - UI/UX considerations for human-agent interactions
-- Market projections ($7B in 2025 → $196B+ by 2034)
+- Market projections (9-firm spread; 26%–49.6% CAGR; cited + retrieval-dated)
 - Funding landscape and community initiatives
 
 ### 📈 Interactive Visualizations
@@ -32,12 +32,13 @@ The goal of this repository is to provide a thorough understanding of:
 ### 📄 Source Materials
 - **cryptoeconomics-for-ai-agents-2025.pdf** - Original research document
 
-## Key Findings
+## Key Findings (refreshed mid‑2026 — every figure cited + retrieval‑dated in [`market-research.md`](./market-research.md) and [`data/provenance.json`](./data/provenance.json))
 
-- **Explosive Growth**: The AI agent economy is projected to grow from $7B (2025) to $196.6B (2034) at 43.8% CAGR
-- **Enterprise Adoption**: Expected to jump from <1% today to 33% by 2028
-- **Economic Impact**: Potential $15 trillion global economic impact by early 2030s
-- **Current Leaders**: Algorithmic trading ($2.36B), AI call centers ($2.1B), and supply chain automation ($1.8B)
+- **Market size is a spread, not a number**: across 9 research‑firm editions (2025–2026), the AI‑agent / agentic‑AI market sits at ~$5–8B in 2025 with forward CAGRs of **26%–49.6%**. The old "$7B → $196.6B @ 43.8%" (Market.us) is still live but now the aggressive end of the range. "AI Agents," "Agentic AI," and "Agentic Commerce" are kept as distinct report families.
+- **Enterprise adoption**: Gartner — agentic AI in <1% of enterprise apps (2024) → **33% by 2028**, but **>40% of agent projects expected cancelled by end‑2027**; McKinsey — **23% of orgs scaling**, ≤10% in any single function.
+- **Infrastructure breakout — x402**: now an independent foundation (`x402-foundation/x402`, 6,217★), **npm ~1.08M downloads/month**, **100M+ on‑chain transactions on Base** (meme‑inflated). **ERC‑8001 Final, ERC‑8004 Draft** (Aug 2025).
+- **Crypto‑native slice is small & cooled**: CoinGecko "AI Agents" token category **~$2.8B** total cap (TAO ~$1.95B, FET ~$387M, VIRTUAL ~$345M).
+- **Economic‑impact attribution fixed**: the "$15.7T by 2030" figure is **PwC** (total AI), not McKinsey — McKinsey's gen‑AI estimate is **$2.6–4.4T/yr**.
 
 ## Technologies Covered
 
@@ -56,4 +57,4 @@ This research is provided for informational purposes. Please cite this repositor
 
 ---
 
-*Last Updated: September 2025*
+*Last Updated: June 30, 2026*

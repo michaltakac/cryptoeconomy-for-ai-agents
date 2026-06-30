@@ -1,145 +1,228 @@
-# Crypto Economics for AI Agents: State of the Market (September 2025)
+# Crypto Economics for AI Agents: State of the Market (mid‑2026)
 
-## Infrastructure and Protocol Layer
-
-**Micropayment Protocols (HTTP 402 – L402/x402):** A core building block is the resurgence of the long-dormant HTTP 402 "Payment Required" status code as a way to enable machine-to-machine micropayments. On the Bitcoin side, L402 (formerly LSAT) combines Lightning Network payments with bearer tokens (macaroons) to charge sats for API requests [¹](#ref1). This allows services to meter usage and authenticate users (or agents) via Lightning, without traditional accounts. In the Ethereum and multi-chain world, Coinbase's x402 protocol extends this idea using stablecoins and on-chain payments. Announced in May 2025, x402 repurposes HTTP 402 to support direct machine-native payments with crypto, so that clients (human or AI) can pay for API calls, data, or services on the fly without human intervention or subscriptions [²](#ref2) [³](#ref3). The design is chain-agnostic and open-source – a resource server simply responds with a 402 and payment instructions, the agent client then makes an on-chain payment (e.g. a USDC transfer) and retries the request with proof of payment in an HTTP header [⁴](#ref4) [⁵](#ref5). This unlocks frictionless micropayments across many sectors. In practical terms, **AI agents can now pay per API call, per article or content stream, or even for cloud compute by the second** [⁶](#ref6). The protocol supports sub-cent transactions with instant settlement (on rollups, ~200ms finality [⁷](#ref7)), making **pay-per-use economics technically feasible and economically viable** where legacy credit card rails (with seconds of latency, high fees, and minimum charge amounts) fell short [⁸](#ref8) [⁹](#ref9). Both L402 and x402 are complementary approaches – Lightning enables bitcoin-denominated micropayments (e.g. PayPerQ, a GPT-4 chatbot charging a few sats per query [¹⁰](#ref10)), while x402 focuses on stablecoins and can work across Ethereum L2s, Layer-3s, and other chains. Notably, x402 is fee-free at the protocol level and simple to integrate (one line of middleware code), abstracting away blockchain complexity for developers [¹¹](#ref11) [¹²](#ref12). This kind of *machine-native payment rail* is critical infrastructure for an AI agent economy, as it gives agents the ability to autonomously exchange value for services in real time.
-
-**Ethereum Agent Standards (EIP-8004 & EIP-8001):** Beyond payments, there is active development on Ethereum to give AI agents a *native trust and coordination layer*. ERC-8004 "Trustless Agents" (proposed Aug 2025) introduces on-chain registries for agent identity, reputation, and validation [¹³](#ref13). It builds on an existing Agent-to-Agent (A2A) communication protocol, adding a **public trust fabric** so that agents from different organizations or platforms can discover and interact without pre-existing trust [¹⁴](#ref14) [¹⁵](#ref15). Concretely, ERC-8004 defines: an **Identity Registry** (each agent gets a global on-chain ID and an off-chain AgentCard describing its capabilities), a **Reputation Registry** (for posting and fetching feedback attestations about an agent's performance), and a **Validation Registry** (for registering external validation results, e.g. stake-backed verification of an agent's task results or TEE-based attestations) [¹⁶](#ref16) [¹⁷](#ref17). The design is modular – different trust models can be plugged in depending on the stakes (from simple rating feedback for low-risk tasks like ordering pizza, up to crypto-economic stake slashing or secure enclave proofs for high-stakes tasks like medical diagnoses) [¹⁸](#ref18). By standardizing these registries, ERC-8004 aims to accelerate a **cross-organizational agent economy** on Ethereum, where an AI agent can prove its identity and track record on-chain and thus be chosen for jobs even by clients that have never met it. Importantly, **payments are considered orthogonal** to this standard – it focuses on identity and trust, while allowing protocols like x402 to handle the payment layer (payment receipts could still feed into the reputation system as additional data) [¹⁹](#ref19).
-
-Meanwhile, ERC-8001 "Secure Intents" (draft) tackles how autonomous agents coordinate and pass instructions to each other (or execute cross-chain actions) in a **verifiable, secure manner**. A *Secure Intent* is essentially a cryptographically signed and encrypted instruction that an agent can create, specifying **what action to perform, who the intended executor is, when it should happen, and how it should be carried out**, all bound together with a digital signature and timestamp [²⁰](#ref20) [²¹](#ref21). This provides authenticity (proving the intent came from a specific agent), integrity (it can't be tampered with without invalidating the signature), confidentiality (the payload is encrypted to the recipient, so e.g. one agent can give another a secret instruction without others reading it), and time-boundedness (preventing replay attacks with expired intents) [²²](#ref22) [²³](#ref23). In simpler terms, Secure Intents allow agents to coordinate "plans" or requests among themselves *without needing to trust a central server* – for example, an AI trading bot could send a secure intent to a DeFi protocol agent to execute a series of swaps at a future time, and the intent could be verified and carried out on-chain only under the exact conditions specified [²⁴](#ref24) [²⁵](#ref25). This framework is seen as a way to enable complex multi-agent workflows (in finance, gaming, cross-chain arbitrage, etc.) with formal security guarantees, filling the gaps left by prior intent-passing proposals. Together, standards like ERC-8004 and ERC-8001 (still in draft in 2025) indicate a push toward **common protocols for agent identity, trust, and secure communication** on Ethereum and its rollups. These would form the *protocol-layer glue* that lets independent AI agents transact and collaborate trustlessly, much as ERC-20 and ERC-721 provided common standards for tokens and assets.
-
-**High-Performance Agent Blockchains and Cross-Chain:** Scalability is another vital piece of infrastructure for AI economics. Traditional L1 blockchains are not optimized for the rapid, tiny transactions and the millisecond decision cycles that AI agents operate on [²⁶](#ref26) [²⁷](#ref27). This has given rise to purpose-built solutions. For instance, **Sei Network** (an optimized L1 which is EVM-compatible) is positioning itself as a home for "agentic AI" applications, boasting sub-500ms finality and massive throughput to handle "millions of micro-transactions per second" in future [²⁸](#ref28) [²⁹](#ref29). The idea is that in AI-vs-AI interactions (say, two algorithmic trading agents), speed is a competitive advantage – so the fastest settlement infrastructure wins [³⁰](#ref30) [³¹](#ref31). Similarly, **Kite AI** is a new Layer-1 (backed by PayPal Ventures) designed specifically for autonomous agents, combining on-chain agent identities ("passports"), **streaming payments**, and trustless computation in a single stack [³²](#ref32) [³³](#ref33). Kite's vision is an "agent-native" blockchain where every significant action an agent takes (service calls, state changes, payments) can be recorded and audited on-chain, but with the speed and fee structure to make billions of tiny interactions viable [³⁴](#ref34) [³⁵](#ref35). Beyond new L1s, many projects are leveraging Ethereum L2s and even L3 app-specific rollups for agents – the x402 reference implementation, for example, runs on Coinbase's Base L2 (using USDC as the payment token on a fast, low-cost network). **Cross-chain interoperability** is also important: agents might find the best services or cheapest compute on different chains. We see initiatives like **omni-chain payment hubs** (e.g. the AEON project) that bridge stablecoin liquidity across regions so that an AI agent in one country can pay a merchant in another seamlessly [³⁶](#ref36). Secure Intents are explicitly designed to be chain-agnostic as well – an intent could trigger actions on multiple networks in a coordinated way [³⁷](#ref37). Overall, the infrastructure layer in late 2025 consists of emerging standards and networks that together aim to give agents the tools humans take for granted: a wallet to hold value, an identity/reputation to build trust, and fast channels to pay and communicate anywhere, any time.
-
-## Application Layer and Use Cases
-
-On top of these protocols, a variety of **projects and platforms are bringing crypto-economic agents into real-world use**. Broadly, current applications span *paid API services, decentralized marketplaces, autonomous finance, and content platforms*:
-
-- **Pay-As-You-Go APIs and Services:** One immediate use case unlocked by HTTP-402 micropayments is **fine-grained consumption of data and AI services**. Instead of a user or agent needing monthly subscriptions or upfront API keys, they can pay per call or per dataset. For example, an autonomous research agent can purchase access to individual news articles or legal documents on demand for a few cents each, instead of buying a full database subscription [³⁸](#ref38) [³⁹](#ref39). Using x402, such an agent simply gets a **402 Payment Required** when it hits a paywalled API, transfers (say) $0.25 USDC to the provider's address, and immediately receives the content – all automatically. This model is being applied to many domains: **LLM-as-a-service** (e.g. Daydreams Router offers paid access to various LLM endpoints with x402 [⁴⁰](#ref40)), **web scraping** (e.g. Firecrawl API charges per scrape [⁴¹](#ref41)), **cloud storage** (Pinata's IPFS service now accepts account-free payments per upload/download via 402 [⁴²](#ref42)), and more. Even OpenAI's own API could be wrapped by third parties in a 402 paywall to offer a "ChatGPT as a microservice" without requiring OpenAI accounts – indeed, the PayPerQ bot mentioned earlier provides a ChatGPT-4 chat interface where developers pay per query in Bitcoin [¹⁰](#ref10). For end-users, these developments mean AI and data services can be consumed à la carte, with crypto handling the tiny payments behind the scenes. For service providers and API hosts, it creates new revenue streams: previously un-monetizable "too-small-to-bill" interactions can now be sold for pennies (or sats) instantly [⁴³](#ref43) [⁴⁴](#ref44).
-
-- **Autonomous Agent Marketplaces:** Several blockchain projects pre-dating the 402 trend have focused on enabling marketplaces for AI agents and algorithms. They provide insight into the *token economics and decentralized coordination of AI services*. **SingularityNET (AGIX)**, for example, has built a blockchain-based AI services marketplace where developers publish AI models or services and users (or agents) pay in the AGIX token to use them [⁴⁵](#ref45). The platform envisions agents even *composing* services – e.g. one agent might outsource part of a task to another agent's service, negotiating and paying with tokens (an early notion of AI-to-AI commerce on-chain). SingularityNET also uses its token for governance and staking (to curate reputable services) in the network [⁴⁶](#ref46). Another is **Fetch.ai (FET)**, which introduced the concept of **Autonomous Economic Agents (AEAs)** on a custom chain [⁴⁷](#ref47). Fetch's framework allows developers to deploy agents that can discover each other and negotiate exchanges of services using a peer-to-peer economic protocol (the Open Economic Framework). For example, a Fetch agent on your electric car might automatically find the best charging station and pay it in FET, or a freight logistics agent could negotiate trucking services on your behalf [⁴⁸](#ref48) [⁴⁹](#ref49). These networks operate their own blockchain (Fetch uses a Cosmos-based chain) and their tokens fuel transactions and reward contributors (like data providers or node operators) [⁵⁰](#ref50). While adoption of these early agent platforms has been gradual, they illustrate the potential of *decentralized AI marketplaces* and have cultivated active communities. Notably, many concepts in the new Ethereum ERCs (like on-chain agent identity, or staking for verification) echo what projects like Fetch and SingularityNET have experimented with in their ecosystems.
-
-- **On-Chain Autonomous Finance (DeFi Agents):** A fast-growing category is AI agents that manage on-chain assets and financial strategies – effectively **decentralized trading bots or portfolio managers** that users can deploy. Here, the crypto economics involve both payments and trust/permission. A user might give an agent limited access to a wallet or smart contract, and the agent will execute trades within set rules. Projects like **Morpheus** and others have developed agent frameworks that integrate with DeFi protocols. A recent example is **Lit Protocol's Vincent** agent stack, which allows developers to launch non-custodial finance bots with enforceable policy guardrails [⁵¹](#ref51) [⁵²](#ref52). Vincent uses smart-contract controlled keys in secure enclaves (TEE) and on-chain policy checks (spending limits, whitelisted tokens, time windows, etc.) to ensure an agent can't run off with user funds or exceed its mandate [⁵³](#ref53) [⁵⁴](#ref54). This kind of "Autonomous Account Abstraction" means a user can trust an AI agent to act on their behalf with crypto assets, knowing that the agent is cryptographically constrained. It also produces audit trails – Vincent, for instance, outputs proofs of every action which could later feed into a reputation registry like ERC-8004 [⁵⁵](#ref55) [⁵⁶](#ref56). DeFi-focused agents are being used for things like yield farming, automated trading, liquidity management, and cross-chain arbitrage, where speed and 24/7 attentiveness give an edge. We're seeing early deployments in trading competitions and treasury management. Over time, such agents could evolve into "robo-advisors" that anyone can spin up – essentially **AI quants in your pocket** managing portfolios, with performance history and compliance proofs that are publicly verifiable.
-
-- **Content and Community Applications:** Beyond finance, crypto-enabled agents are popping up in content creation, gaming, and social platforms. For example, **decentralized research assistants** can generate reports or answer questions for a fee. The Heurist platform's *Deep Research* assistant is one of the first Web3-native AI research tools – users pay per query in USDC (via x402) to get multi-page reports from an AI agent that scours the web and blockchain data [⁵⁷](#ref57). Because payments are handled through the wallet, no API keys or subscriptions are needed on the user side, lowering friction. In social media, **community tipping and rewards** can be facilitated by AI agents: tip.md is a service that lets chatbots or assistants help users send crypto tips to creators, using x402 under the hood (it checks the user's wallet and prepares a USDC tip transaction that the user's agent can then sign and send) [⁵⁸](#ref58). In Web3 gaming, experiments are underway with AI NPCs that have on-chain economies – an NPC agent might earn tokens for helping players or spend tokens to acquire in-game items, all governed by smart contracts. These sorts of applications remain early, but are rapidly expanding as the infrastructure matures. The **Questflow** project, for instance, is exploring an "orchestration layer for the multi-agent economy" – essentially coordinating multiple AI agents to work together on on-chain quests and split rewards autonomously [⁵⁹](#ref59). This hints at future *DAO-like structures composed of AI agents*, where agents can jointly invest in tasks or vote with staked tokens on which agent gets a job. We also see traditional companies integrating these ideas: e.g. Adobe's recent demo of an AI design agent that can buy stock images or fonts as needed (using crypto micropayments behind the scenes) to complete a graphic task. In summary, **use cases are proliferating wherever on-demand digital services or autonomous decision-making intersects with the need to transfer value**. Crypto provides the settlement layer for those transfers, whether it's a fraction of a cent for a kilobyte of data, or a performance bonus paid to an agent that completed a complex workflow.
-
-## UI/UX and Adoption Considerations
-
-For the human end-users, the goal is that interacting with crypto-economic AI agents becomes **as smooth as using any online service** – with the added benefits of self-custody and global reach. Achieving great UX is a work in progress, but several trends are apparent:
-
-- **Seamless Payments in the Background:** Users don't want to manually sign a dozen transactions or top-up a wallet constantly for an AI agent that is making frequent payments. Thus, techniques like **account abstraction** and session keys are being employed so that an agent can spend from a user's wallet within predefined limits. For example, an AI assistant app might get a "budget" of $5 in a delegated wallet it can use for the user's requests. With something like Lit Protocol's policy-controlled keys or Gnosis Safe's allowance modules, the user can set this up once, and thereafter the agent pays for APIs or tips automatically up to that limit without prompting the user each time [⁵²](#ref52) [⁶⁰](#ref60). The UI simply shows, say, "$0.01 USDC spent to retrieve latest stock price" in the chat log. This *invisible crypto* approach is important to compete with Web2 UX. Projects like Coinbase's x402 specifically emphasize minimizing friction: the client and server don't even need to know about gas or blockchains – the heavy lifting is offloaded to a facilitator service – so from the developer's perspective it's just one function call, and from the user's perspective it feels instant [⁶¹](#ref61) [⁶²](#ref62). Early demos of ChatGPT-like agents with crypto wallets have been promising, allowing, for instance, a chatbot to directly **buy an item from an NFT marketplace during a conversation** (the user approves with one click and the bot handles the rest).
-
-- **Agent Identity and Trust Signals:** As agents start transacting on behalf of users or enterprises, **showing trust and reputation info in the UI becomes crucial**. An analogy can be made to e-commerce: just as we look at seller ratings or verified badges, someone using an AI agent service will want to know, *is this agent legit?* Thanks to standards like ERC-8004, an agent's on-chain AgentID and associated attestations could be visible in interfaces. For example, a future "AI agent app store" might list agents with stats like *Tasks completed: 1,000, Verified by 3 independent validators, Average rating 4.9/5*. We aren't fully there yet in 2025, but groundwork is being laid. Some UIs already allow users to inspect the prompts or reasoning an agent uses (to build trust that the AI is doing what it's supposed to). Others, like Morpheus's reference agent, produce cryptographic proofs of compliance (e.g. "Agent stayed within its $100 spending limit"), and these proofs could be shared – in fact, developers are planning for such proofs to be published to shared registries (the Vincent roadmap includes emitting privacy-preserving attestations that an agent followed policy X, which could tie into ERC-8004's reputation system) [⁵⁵](#ref55) [⁵⁶](#ref56). In the coming months, we can expect UX patterns to emerge for conveying an agent's "trust score" and for users to provide feedback that feeds back on-chain.
-
-- **Use Case-Specific Interfaces:** Different agent use cases demand different UIs. For a pay-per-query chatbot, the interface may look like a familiar chat window with a running tally of sats or tokens spent – NoBSBitcoin's *PayPerQ*, for instance, mimics ChatGPT's interface but with a Lightning invoice popup when you ask a question beyond your free quota [⁶³](#ref63) [¹⁰](#ref10). For an autonomous DeFi agent, the interface might resemble a brokerage app where you configure strategy parameters and risk limits. And for marketplace platforms, we'll see agent directories with search and filter (much like decentralized app stores). The common thread is abstracting the blockchain complexity (addresses, transaction IDs, etc.) away unless the user wants to see it. Successful projects in this space, such as Heurist (the research assistant) or tip.md, emphasize that users don't need any crypto knowledge – they click a button to pay or tip, and under the hood an ERC-20 transfer or 402-handshake occurs [⁵⁷](#ref57) [⁵⁸](#ref58). The UI/UX challenge going forward is to maintain those smooth experiences even as the interactions become more complex (e.g. an agent hiring sub-agents, or multi-step secure intent handshakes). Community projects and hackathons are actively exploring this – for example, at a recent Coinbase hackathon, teams built browser extensions that intercept 402 responses and automatically trigger a crypto payment, making the process entirely invisible to users until a final confirmation. Overall, **ease of use is improving**, and as more users try these agent-driven services (often lured by capabilities like GPT-4 access or passive income bots), familiarity with crypto micropayments will grow.
-
-## Market Size and Growth Projections
-
-The AI agent economy is experiencing explosive growth, with multiple research firms projecting dramatic expansion over the next decade:
-
-### Current Market Valuation (2024-2025)
-- **Current Market Size**: $5.2B - $7B
-- **Year-over-Year Growth**: 35% increase from 2024 to 2025
-
-### Market Projections by 2034
-Research firms provide varying but consistently optimistic projections:
-- **Conservative Estimate** (Emergen Research): $82.7B at 31.68% CAGR
-- **Base Case** (Market.us): $196.6B at 43.8% CAGR  
-- **Optimistic Projection** (Grand View Research): $367.68B at 46.2% CAGR
-
-### Current Market Segments (2025)
-The $7B market is currently dominated by:
-- **Algorithmic Trading Platforms**: $2.36B (33.7%)
-- **AI Call Centers**: $2.1B (30%)
-- **Supply Chain Automation**: $1.8B (25.7%)
-- **Crypto Trading Bots**: $0.17B (2.4%)
-- **Other Applications**: $0.57B (8.2%)
-
-### Enterprise Adoption Timeline
-- **Current (2025)**: <1% of enterprise software incorporates agentic AI
-- **By 2028**: Nearly 33% of enterprise software expected to embrace agentic AI
-- **By 2030**: Projected 65% adoption rate
-
-### Economic Impact Projections
-- **Global Economic Impact by Early 2030s**: Up to $15 trillion
-- **Key Driver**: Autonomous agents handling complex operations, real-time decisions, and cross-organizational coordination
-
-> **View Interactive Market Visualizations**: [Open market-graphs.html](./market-graphs.html) for detailed charts and projections
-
-## Opportunities, Funding, and Community Momentum
-
-The intersection of blockchain and AI agents is considered one of the next major frontiers in tech, drawing significant attention and funding. Industry leaders predict an explosive rise in autonomous agent adoption – NVIDIA's CEO Jensen Huang characterized agentic AI as a "multi-trillion-dollar opportunity" [⁶⁴](#ref64). With the market projected to grow from $7B to potentially $196.6B by 2034 (43.8% CAGR) [⁶⁵](#ref65), it's no surprise that venture capital and big tech are investing heavily in this space:
-
-- **Venture Capital Investments:** 2024–2025 has seen a wave of Crypto+AI startup funding. Major crypto VCs (a16z Crypto, Polychain, Coinbase Ventures, etc.) and even traditional tech VCs are backing projects that build the "rails" for AI agents. For example, **Kite AI** (mentioned above) secured funding led by PayPal Ventures to build its agent-focused blockchain [³²](#ref32). Fetch.ai raised substantial funds to develop its agent platform and tooling. Even infrastructure projects like BlockGPT (hypothetical) or ChainML that combine on-chain logic with AI have garnered interest. According to industry reports, crypto VC firms in 2024 started explicitly allocating portions of their portfolios to AI agent startups, seeing them as the next wave of DApps and protocols [⁶⁶](#ref66). We also see crossover investments: AI-focused funds investing in crypto startups (for instance, an AI fund might invest in an agent marketplace if it believes decentralized networks will be where AI services transact). The result is a growing number of well-capitalized teams tackling pieces of the puzzle – from secure agent operating systems, to decentralized data marketplaces, to AI-driven dApps in areas like healthcare and law (where agents could monetize expert knowledge via tokenized incentives).
-
-- **Community and Crowdfunded Projects:** Not everything is VC-funded; a lot of innovation is coming from open-source communities and grassroots efforts. The **x402 ecosystem** is a good example – since Coinbase open-sourced the protocol, independent developers worldwide have built integrations and services (client SDKs, proxy servers, agent wallets, etc.) and simply added them to the ecosystem list [⁶⁷](#ref67). Some received small grants or hackathon prizes, but many are essentially community contributions driven by the belief in an open web standard. We're also seeing **DAO-like funding** for agent projects. SingularityNET's **Deep Funding** program (community-voted grants) has funded dozens of AI agent proposals using the AGIX token treasury. Fetch.ai's **community** likewise supports hackathons and developer funds to encourage building on their agent framework. Another example is **Bittensor (TAO)** – a decentralized network for AI model training – which didn't rely on traditional VC but rather distributed tokens to contributors (miners) who run AI nodes, creating a community-driven ecosystem to incentivize AI services. This *crowd-centric funding* aligns well with the ethos of decentralization: it helps ensure that critical pieces (like agent identity standards or open agent orchestration tools) are not solely owned by any single corporation.
-
-- **Global Reach and Inclusivity:** A notable promise of crypto economics for AI agents is enabling *global participation* in the AI economy. Because payments can be permissionless and in digital currency, an independent developer in Nigeria or Indonesia can deploy an AI service and earn from anywhere, and users in regions with limited banking can still access advanced AI agents by paying with crypto. Projects like **AEON** explicitly target underbanked regions – enabling AI agents to pay real-world merchants across Southeast Asia, Latin America, and Africa via stablecoin transactions on x402 [³⁶](#ref36). Likewise, Lightning Network integrations mean that anyone with a phone and internet can tap into services like PayPerQ or others using just bitcoin micropayments, no credit card needed [⁶⁸](#ref68). This opens opportunities for local AI innovations (imagine an agricultural advice agent paid in a local CBDC or stablecoin by farmers, or a language translation agent in emerging markets). We are still in early days, but as crypto and AI adoption both grow, their intersection could drastically **lower barriers to entry** in the digital economy.
-
-- **Emerging Opportunities:** Looking ahead, there are several white-space opportunities at this intersection. **Agent interoperability** is one – as multiple platforms (Ethereum, Cosmos, Lightning, etc.) develop agent capabilities, solutions that allow agents on different networks to find and talk to each other (possibly using *secure intents* as a lingua franca) will be valuable. Another is **AI governance and safety via crypto**: using tokens and crypto-economic mechanisms to align agent behavior with human values. For instance, an agent could be required to stake a bond (slashed for bad actions) before performing sensitive tasks – a concept akin to "insurance for agent behavior" that ERC-8004 hints at with validation and staking [⁶⁹](#ref69) [⁷⁰](#ref70). There's also room for **agent-focused user interfaces** – e.g. browsers or operating systems that natively support agent wallets and 402 payments, making every device agent-ready. Finally, expect to see **traditional AI companies and cloud providers bridging into crypto payments**: we might see an official OpenAI plugin for crypto micropayments, or AWS offering blockchain-based agent identity services, as the demand for agent commerce grows. Each of these areas represents an opportunity for startups and communities to pioneer new solutions.
-
-## Conclusion
-
-As of September 2025, the convergence of AI agents and crypto economics has moved from speculative idea to tangible reality. The foundation is being laid with technologies like **x402/L402 micropayments** (giving agents the ability to seamlessly pay each other or pay for services) and Ethereum's emerging **agent standards** (providing a common identity, trust, and secure coordination layer for agents across the globe). On top of this foundation, we see a blossoming application ecosystem – from research bots that *pay per info*, to decentralized marketplaces of AI services, to autonomous trading agents, and even AI assistants that can handle payments and tips on our behalf. Critically, all this is paired with *decentralized AI networks*, ensuring that no single entity controls these agent interactions or their economy. The market is still young and evolving rapidly, but its trajectory is clear: **in the coming years, millions of AI agents will participate in the global economy as both service providers and consumers**, negotiating and transacting value at lightning speed. Crypto's role is to be the trust-minimized financial rail and incentive mechanism for this agent ecosystem – something traditional systems cannot offer at the needed scale or automation. With robust infrastructure now coming online and significant investment fueling innovation, the opportunities in this space are enormous. In short, the stage is set for a new era of **autonomous agent commerce**, where human and AI alike can trade and collaborate in a decentralized, economically incentivized way. The projects and protocols active today are likely to form the backbone of this future, one where **"Payment Required"** is not a dead relic of HTTP, but a living, breathing part of how AIs and humans seamlessly interact [⁶](#ref6) [⁷¹](#ref71) – powering a truly global, machine-driven economy.
-
-## Sources:
-
-- Coinbase Developer Blog – Introducing x402 Protocol [²](#ref2)
-- Coinbase x402 Whitepaper – Internet-Native Payments for AI Agents [⁶](#ref6) [⁷²](#ref72) [⁷³](#ref73)
-- Lightning Labs Docs – L402: Lightning 402 Payment Standard [⁷⁴](#ref74)
-- Ethereum ERC-8004 Draft – Trustless Agents Standard [¹³](#ref13) [¹⁵](#ref15)
-- Ethereum ERC-8001 Draft – Secure Intents for Agent Coordination [²⁰](#ref20) [²¹](#ref21)
-- Blockworks – Onchain AI Agents Move from Demo to Deployment [⁵²](#ref52) [⁷⁵](#ref75)
-- PayPal Ventures – State of Agentic Commerce / Kite AI [⁷⁶](#ref76) [³³](#ref33)
-- Sei Network Blog – Building Rails for a $200B+ AI Agent Economy [²⁷](#ref27) [⁶⁵](#ref65)
-- Medium (balajibal) – Crypto AI Agent Tokens Overview 2024–25 [⁴⁵](#ref45) [⁴⁷](#ref47)
-- x402 Ecosystem Site – project listings (Heurist, tip.md, AEON, etc.) [⁵⁷](#ref57) [⁵⁸](#ref58)
-- NoBSBitcoin – PayPerQ: GPT-4 via Lightning Micropayments [¹⁰](#ref10)
+> **Last refreshed:** 2026‑06‑30 · **Supersedes** the September‑2025 edition.
+> **Provenance discipline:** Every quantitative claim below carries an inline source and a **retrieval date**. Machine‑readable figures live in the shared data layer maintained by the Data Acquisition workstream — [`data/provenance.json`](./data/provenance.json) (the ledger), [`SOURCES.md`](./SOURCES.md) (the human‑readable index), [`data/market_size.json`](./data/market_size.json), [`data/ai_agent_tokens.json`](./data/ai_agent_tokens.json), [`data/funding.json`](./data/funding.json), and [`data/models.json`](./data/models.json) (projection formulas). Every number here is cross‑checked against that ledger. Following the ledger’s status legend, figures fetched from a primary/reputable source on 2026‑06‑30 are marked **[V]** (= ledger `verified`); figures that are snapshot‑only, platform‑self‑reported, or whose primary page blocked automated retrieval (Gartner, Grand View, Market.us all 403 bots; some Dune/x402scan dashboards are client‑rendered and need an API key) are marked **[~]** (= ledger `snapshot` / `snapshot_pending` — re‑confirm before quoting as fact). Where research firms disagree we show the **spread**, never a single cherry‑picked number.
 
 ---
 
-### References
+## 0. Executive summary — what mid‑2026 signal actually says
 
-<a id="ref1"></a>¹ <a id="ref74"></a>⁷⁴ L402: Lightning HTTP 402 Protocol | Builder's Guide  
-https://docs.lightning.engineering/the-lightning-network/l402
+- **The market‑size debate is wider, not narrower.** Across nine 2025–2026 research‑firm editions, the AI‑agent / agentic‑AI market is pegged at roughly **$5–8B in 2025**, with forward CAGRs spanning **26% to ~49%** depending on definition and firm. The old doc’s “$7B → $196.6B @ 43.8%” is *still live* — it traces to **Market.us (Agentic AI)** — but it now sits at the **aggressive end** of a much broader distribution (§2). Treat any single number as one vote, not the consensus.
+- **“AI Agents,” “Agentic AI,” and “Agentic Commerce” are three different report families** with different base years and definitions. Conflating them is the single most common error in secondary coverage; we keep them separate throughout (§2).
+- **The crypto‑native slice is small and has cooled.** The CoinGecko “AI Agents” token category is **~$2.80B total market cap** (2026‑06‑30) [V] — a fraction of the broad AI‑agent software TAM and well off its early‑2025 peak. Token leaders: Bittensor (TAO) ~$1.95B, Fetch/ASI (FET) ~$387M, Virtuals (VIRTUAL) ~$345M (§5).
+- **The real infrastructure breakout of the last year is x402.** The HTTP‑402 stablecoin payment standard went from a Coinbase experiment to an independent foundation: **npm `x402` ≈ 1.08M downloads/month**, repo `x402-foundation/x402` at **6,217★**, and **100M+ cumulative on‑chain transactions on Base through Q1 2026** [V] — though that transaction count is heavily inflated by one meme‑coin pay‑to‑mint and is *not* clean agent‑commerce demand (§6).
+- **Enterprise adoption is early but the curve is real and now better‑sourced.** Gartner: agentic AI in **<1% of enterprise apps in 2024 → 33% by 2028** [V/~]; McKinsey: **23% of orgs scaling** an agentic system but **≤10% in any single function** [V]; and a sobering counter‑signal — Gartner expects **>40% of agentic‑AI projects cancelled by end‑2027** [V] (§4).
+- **Standards are maturing on Ethereum:** **ERC‑8001 “Agent Coordination Framework” is Final**; **ERC‑8004 “Trustless Agents” is Draft** (both created Aug 2025) [V] (§6).
 
-<a id="ref2"></a>² <a id="ref3"></a>³ <a id="ref4"></a>⁴ <a id="ref5"></a>⁵ <a id="ref6"></a>⁶ <a id="ref7"></a>⁷ <a id="ref8"></a>⁸ <a id="ref9"></a>⁹ <a id="ref71"></a>⁷¹ Coinbase reveals x402 protocol to enable on-chain payments via HTTP  
-https://cryptoslate.com/coinbase-reveals-x402-protocol-to-enable-on-chain-payments-via-http/
+---
 
-<a id="ref10"></a>¹⁰ <a id="ref63"></a>⁶³ <a id="ref68"></a>⁶⁸ PayPerQ: ChatGPT4 Pay-per-Query Over Lightning Service  
-https://www.nobsbitcoin.com/payperq-ai/
+## 1. Infrastructure and Protocol Layer
 
-<a id="ref11"></a>¹¹ <a id="ref12"></a>¹² x402.org  
-https://www.x402.org/
+**Micropayment Protocols (HTTP 402 — L402 / x402).** The core building block remains the revival of the long‑dormant HTTP `402 Payment Required` status code as a machine‑to‑machine payment rail. On Bitcoin, **L402** (formerly LSAT) combines Lightning payments with bearer macaroon tokens to charge sats per API request, metering usage without accounts ([Lightning Labs docs](https://docs.lightning.engineering/the-lightning-network/l402), retrieved 2026‑06‑30). In the Ethereum / multi‑chain world, **x402** (introduced by Coinbase, May 2025) repurposes the same status code for stablecoin payments: a resource server answers a request with `402` plus payment instructions, the client (human or agent) makes an on‑chain payment — typically USDC on a fast L2 — and retries with proof of payment in an HTTP header. The design is chain‑agnostic, open‑source, and integrable as a single line of middleware ([x402.org](https://www.x402.org/); [coinbase x402 whitepaper](https://www.x402.org/x402-whitepaper.pdf), retrieved 2026‑06‑30). This makes pay‑per‑call, pay‑per‑article, and pay‑per‑second‑of‑compute economically viable where card rails (latency, fees, minimum charges) could not.
 
-<a id="ref13"></a>¹³ <a id="ref14"></a>¹⁴ <a id="ref15"></a>¹⁵ <a id="ref16"></a>¹⁶ <a id="ref17"></a>¹⁷ <a id="ref18"></a>¹⁸ <a id="ref19"></a>¹⁹ ERC-8004: Trustless Agents  
-https://eips.ethereum.org/EIPS/eip-8004
+The **maturity signal on x402 is now measurable** (all retrieved 2026‑06‑30, primary APIs):
 
-<a id="ref20"></a>²⁰ <a id="ref21"></a>²¹ <a id="ref22"></a>²² <a id="ref23"></a>²³ <a id="ref24"></a>²⁴ <a id="ref25"></a>²⁵ Secure Intents Explained: The Future of Safe and Verifiable AI Actions | by Kwame Bryan | Aug, 2025 | Medium  
-https://medium.com/@kwame.bryan/secure-intents-explained-the-future-of-safe-and-verifiable-ai-actions-7a25d20768f8
+| Signal | Value | Source |
+|---|---|---|
+| npm `x402` downloads, last month | **1,076,390** [V] | `api.npmjs.org/downloads/point/last-month/x402` |
+| npm `@coinbase/x402` downloads, last month | **297,471** [V] | `api.npmjs.org/.../@coinbase/x402` |
+| GitHub `x402-foundation/x402` | **6,217★ / 1,769 forks** [V] | `api.github.com/repos/x402-foundation/x402` |
+| Governance shift | **`coinbase/x402` is now a fork** (96★) of the foundation repo | `api.github.com/repos/coinbase/x402` |
+| On‑chain transactions | **100M+ cumulative on Base through Q1 2026** [V] | [Chainalysis, 2026‑06‑03](https://www.chainalysis.com/blog/x402-agentic-payments-adoption/) |
 
-<a id="ref26"></a>²⁶ <a id="ref27"></a>²⁷ <a id="ref28"></a>²⁸ <a id="ref29"></a>²⁹ <a id="ref30"></a>³⁰ <a id="ref31"></a>³¹ <a id="ref64"></a>⁶⁴ <a id="ref65"></a>⁶⁵ Building the Rails for a $200B+ AI Agent Economy  
-https://blog.sei.io/building-the-rails-for-a-200b-ai-agent-economy/
+> **Honesty caveat on x402 volume.** The 100M+ transaction figure is real but **dominated by a single meme‑coin “pay‑to‑mint” (PING)** that spiked ~10,000% in a week in Q4 2025 — not sustained agent‑commerce demand; activity has since consolidated ([Chainalysis](https://www.chainalysis.com/blog/x402-agentic-payments-adoption/), 2026‑06‑30). **Cumulative USD volume and the precise Base‑share split could not be verified from a primary source** — the canonical explorer x402scan.com and the Dune dashboards (`dune.com/hashed_official/x402-analytics`, query `6240463`) are client‑rendered and require a Dune API key. We therefore report the transaction *count* (Chainalysis‑sourced) and the npm/GitHub adoption proxies, and explicitly **do not publish an unverified dollar‑volume number.** Base is the dominant deployment chain; x402 is also live on Solana, Stellar, Arbitrum, Polygon and Ethereum [~].
 
-<a id="ref32"></a>³² <a id="ref33"></a>³³ <a id="ref34"></a>³⁴ <a id="ref35"></a>³⁵ <a id="ref43"></a>⁴³ <a id="ref44"></a>⁴⁴ <a id="ref69"></a>⁶⁹ <a id="ref70"></a>⁷⁰ <a id="ref76"></a>⁷⁶ PayPal Ventures | Investing to Bring Transformative Solutions to Market Faster  
-https://paypal.vc/news/news-details/2025/The-state-of-agentic-commerce-and-why-we-invested-in-Kite-AI-2025-LroAXfplpA/default.aspx
+**Ethereum Agent Standards (ERC‑8004 & ERC‑8001).** Two complementary standards advanced materially since the last edition (statuses verified verbatim from the canonical `ethereum/ERCs` repo headers, retrieved 2026‑06‑30):
 
-<a id="ref36"></a>³⁶ <a id="ref40"></a>⁴⁰ <a id="ref41"></a>⁴¹ <a id="ref42"></a>⁴² <a id="ref57"></a>⁵⁷ <a id="ref58"></a>⁵⁸ <a id="ref59"></a>⁵⁹ Explore the x402 Ecosystem  
-https://www.x402.org/ecosystem
+- **ERC‑8004 “Trustless Agents” — Status: Draft** (created 2025‑08‑13) ([eip‑8004 source](https://raw.githubusercontent.com/ethereum/ERCs/master/ERCS/erc-8004.md)). Introduces on‑chain registries for agent **Identity** (a global on‑chain ID + off‑chain AgentCard), **Reputation** (feedback attestations), and **Validation** (stake‑backed or TEE‑attested verification of an agent’s results), so agents from different organizations can discover and trust each other without prior relationships. Payments are deliberately *orthogonal* — left to rails like x402 — though payment receipts can feed reputation.
+- **ERC‑8001 “Agent Coordination Framework” — Status: Final** (created 2025‑08‑02) ([eip‑8001 source](https://raw.githubusercontent.com/ethereum/ERCs/master/ERCS/erc-8001.md)). A single‑chain primitive for multi‑party agent coordination: an initiator posts an EIP‑712‑signed *intent*, participants return verifiable acceptance attestations, and the action becomes executable only when all required acceptances are present and current. (The community discussion thread is titled “Secure Intents,” which is why earlier drafts of this report referred to it that way.)
 
-<a id="ref37"></a>³⁷ Add ERC: Agent Coordination Framework by KBryan · Pull Request #1149 · ethereum/ERCs · GitHub  
-https://github.com/ethereum/ERCs/pull/1149
+> **Correction vs the Sept‑2025 edition:** the old doc described both ERCs as “still in draft.” As of 2026‑06‑30 the canonical repo headers show **ERC‑8001 = Final, ERC‑8004 = Draft** — i.e. the *coordination* standard is further along than the *trust/identity* standard.
 
-<a id="ref38"></a>³⁸ <a id="ref39"></a>³⁹ <a id="ref72"></a>⁷² <a id="ref73"></a>⁷³ x402: The Payment Protocol for Agentic Commerce  
-https://www.x402.org/x402-whitepaper.pdf
+**High‑performance agent chains and a dedicated agent L1.** Purpose‑built infrastructure kept forming. The clearest signal is **Kite** (formerly Zettablock), an L1 for autonomous‑agent payments and identity, which **raised an $18M Series A led by PayPal Ventures and General Catalyst (2025‑09‑02; ~$33M cumulative)**, with Coinbase Ventures joining a follow‑on ([PayPal newsroom](https://newsroom.paypal-corp.com/2025-09-02-Kite-Raises-18M-in-Series-A-Funding-To-Enforce-Trust-in-the-Agentic-Web), retrieved 2026‑06‑30). Established networks remain relevant: **Bittensor (TAO)** — a decentralized network of incentivized AI subnets — trades at **~$1.95B market cap** (price ~$202.80, 9.60M of 21M TAO circulating; CoinGecko rank #41) ([CoinGecko](https://www.coingecko.com/en/coins/bittensor), 2026‑06‑30) [V], reportedly expanded from 128→256 subnets in 2026 [~]. The bulk of x402 settlement still runs on **Base** (Coinbase’s OP‑Stack L2) with USDC.
 
-<a id="ref45"></a>⁴⁵ <a id="ref46"></a>⁴⁶ <a id="ref47"></a>⁴⁷ <a id="ref48"></a>⁴⁸ <a id="ref49"></a>⁴⁹ <a id="ref50"></a>⁵⁰ Crypto AI Agent Tokens: A Comprehensive 2024–2025 Overview | by balaji bal | Medium  
-https://medium.com/@balajibal/crypto-ai-agent-tokens-a-comprehensive-2024-2025-overview-d60c631698a0
+---
 
-<a id="ref51"></a>⁵¹ <a id="ref52"></a>⁵² <a id="ref53"></a>⁵³ <a id="ref54"></a>⁵⁴ <a id="ref55"></a>⁵⁵ <a id="ref56"></a>⁵⁶ <a id="ref60"></a>⁶⁰ <a id="ref75"></a>⁷⁵ Onchain AI agents move from demo to deployment - Blockworks  
-https://blockworks.co/news/lit-protocol-vincent-ai-agents
+## 2. Market Size and Growth Projections — show the spread
 
-<a id="ref61"></a>⁶¹ <a id="ref62"></a>⁶² <a id="ref67"></a>⁶⁷ GitHub - coinbase/x402: A payments protocol for the internet. Built on HTTP.  
-https://github.com/coinbase/x402
+There is **no single authoritative number**. Below are the latest editions we could locate per firm, retrieved 2026‑06‑30. **Three report families exist and are kept distinct.** Base years and end years differ, so the values are *not* directly comparable — read the CAGR and the definition, not just the headline.
 
-<a id="ref66"></a>⁶⁶ 2024 Crypto Venture Capital AI Layout Analysis  
-https://www.chaincatcher.com/en/article/2159244
+### 2.1 “AI Agents” family
+
+| Firm (report) | Base → Forecast | CAGR | Verify | Source (retrieved 2026‑06‑30) |
+|---|---|---|---|---|
+| **Fortune Business Insights** — AI Agents | $8.03B (2025) → $251.38B (2034) | 46.61% | **[V]** fetched | [fortunebusinessinsights.com](https://www.fortunebusinessinsights.com/ai-agents-market-111574) |
+| **Precedence Research** — AI Agents | $7.92B (2025) → $294.66B (2035) | 43.57% | **[V]** fetched | [precedenceresearch.com](https://www.precedenceresearch.com/ai-agents-market) |
+| **Roots Analysis** — AI Agents | $15B (**2026** base) → $221B (2035) | 34.64% | **[V]** fetched | [rootsanalysis.com](https://www.rootsanalysis.com/AI-Agents-Market) |
+| **MarketsandMarkets** — AI Agents | $7.84B (2025) → $52.62B (2030) | 46.3% | **[V]** via PRNewswire | [prnewswire.com](https://www.prnewswire.com/news-releases/ai-agents-market-worth-52-62-billion-by-2030---exclusive-report-by-marketsandmarkets-302435486.html) |
+| **Grand View Research** — AI Agents (most‑cited edition) | → $50.31B (2030) | 45.8% (2025–30) | **[V]** via PRNewswire | [prnewswire.com](https://www.prnewswire.com/news-releases/ai-agents-market-size-to-hit-50-31-billion-by-2030-at-cagr-45-8---grand-view-research-inc-302447060.html) |
+| **Grand View Research** — AI Agents (current site, 2026–2033 ed.) | $7.63B (2025) → $182.97B (2033) | 49.6% | **[~]** snippet (page 403s bots) | [grandviewresearch.com](https://www.grandviewresearch.com/industry-analysis/ai-agents-market-report) |
+
+### 2.2 “Agentic AI” family
+
+| Firm (report) | Base → Forecast | CAGR | Verify | Source (retrieved 2026‑06‑30) |
+|---|---|---|---|---|
+| **Market.us** — Agentic AI *(the old doc’s number)* | $5.2B (2024) → $196.6B (2034) | 43.8% | **[V]** via scoop.market.us mirror | [scoop.market.us](https://scoop.market.us/agentic-ai-market-news/) |
+| **Mordor Intelligence** — Agentic AI | $6.96B (2025) → $57.42B (2031) | 42.14% | **[V]** fetched | [mordorintelligence.com](https://www.mordorintelligence.com/industry-reports/agentic-ai-market) |
+| **Emergen Research** — Agentic AI | $5.20B (2025) → $52.40B (2035) | 26.0% *(outlier‑low)* | **[V]** fetched | [emergenresearch.com](https://www.emergenresearch.com/industry-report/agentic-artificial-intelligence-market) |
+
+### 2.3 “Agentic Commerce” family (closest proxy to the *agents‑transacting* thesis)
+
+| Firm (report) | Base → Forecast | CAGR | Verify | Source (retrieved 2026‑06‑30) |
+|---|---|---|---|---|
+| **Grand View Research** — Agentic Commerce | $5.7B (2025) → $65.5B (2033) | 35.7% | **[~]** snippet (page 403s bots) | [grandviewresearch.com](https://www.grandviewresearch.com/industry-analysis/agentic-commerce-market-report) |
+
+**How to read this:**
+- **The spread is the finding.** 2034/2035 forecasts range from **~$52B (Emergen) to ~$295B (Precedence)** — a 5–6× gap driven by definition and assumed CAGR (26%–49.6%). Anyone citing one number is cherry‑picking.
+- **Market.us’s “$5.2B → $196.6B @ 43.8%” is confirmed exactly** against a fetched mirror, so the old doc’s headline is *real and current* — just no longer the consensus.
+- **Base‑year mismatch:** Fortune BI / Precedence / MnM use 2025 (~$7.8–8.0B); Roots uses **2026** ($15B); Market.us uses **2024** ($5.2B). Don’t line them up naively.
+- **Edition drift is rampant**, especially Grand View (its AI‑Agents report alone has run $3.86B/2023→$50.31B/2030 @45.1%, then 45.8%, then a current 49.6%‑to‑2033 cut). Always pin the edition. Grand View and Market.us **block automated fetches**, so their newest cuts are snippet‑grade until manually loaded.
+- **Emergen is the low outlier** (26% CAGR). Note: its *prior* edition circulated as “$30.89B/2024 → $438.68B/2033 @ ~31.6%”; the **live page today shows the sharply revised‑down $5.2B → $52.4B**, so older citations of the big Emergen number are stale.
+
+> *Replaces the old doc’s three‑point “Conservative / Base / Optimistic” framing, which mixed firms and a since‑revised Emergen figure.*
+
+---
+
+## 3. Market Segments and Application Splits
+
+Granular dollar splits by application are **not** published cleanly by the major firms — most give qualitative “dominated the market” language rather than percentages. What is sourced (Grand View Research AI‑Agents report, via PRNewswire mirror, retrieved 2026‑06‑30) [V]:
+
+- **By technology:** machine learning “dominated… accounting for **over 29% of global revenue** in 2024” — the only hard percentage GVR publishes for this report.
+- **By application:** **customer service & virtual assistants** dominated in 2024; other tracked applications: healthcare, financial services, robotics/automation, security & surveillance, marketing/sales, HR, legal/compliance, gaming.
+- **By agent system:** single‑agent systems dominated 2024 (multi‑agent tracked).
+- **By type:** ready‑to‑deploy agents dominated 2024 (build‑your‑own tracked).
+- **By end use:** enterprise dominated 2024 (vs consumer / industrial).
+- **By region:** North America held the largest share in 2024.
+
+> **What we deliberately do *not* carry forward:** the Sept‑2025 edition’s precise segment dollar split (“Algorithmic Trading $2.36B / AI Call Centers $2.1B / Supply Chain $1.8B / Crypto Bots $0.17B …”). We could **not** re‑verify those figures against any current primary source, so per the no‑hallucination rule they are dropped rather than restated. The defensible 2024 read is **customer service & enterprise‑first, ML‑led, North‑America‑led**, with the dollar split unpublished. Cloud‑vs‑on‑prem and vertical (BFSI/retail/IT) percentages are **[~] unverified** — the GVR pages carrying them 403 bots.
+
+---
+
+## 4. Enterprise Adoption Curve
+
+The headline adoption story from the old doc holds up and is now better‑sourced — but it comes with a hard reality check.
+
+**Gartner** (press release 2025‑06‑25, “*Over 40% of Agentic AI Projects Will Be Canceled by End of 2027*”; gartner.com 403s bots, verified via mirrors, retrieved 2026‑06‑30):
+- **“33% of enterprise software applications will include agentic AI by 2028, up from less than 1% in 2024.”** The 33%/2028 figure is **[V]** (mirror); the “<1% in 2024” tail is **[~]** (appears in the release snippet but not on the fetched mirror) ([MES Computing mirror](https://www.mescomputing.com/news/ai/5-predictions-about-agentic-ai-from-gartner)).
+- **“At least 15% of day‑to‑day work decisions will be made autonomously via agentic AI by 2028”** (from ~0% in 2024) [V/~].
+- **Counter‑signal: “Over 40% of agentic‑AI projects will be canceled by end‑2027,”** citing escalating cost, unclear value, and weak risk controls [V] ([Predictive Analytics World mirror](https://www.predictiveanalyticsworld.com/machinelearningtimes/gartner-predicts-over-40-of-agentic-ai-projects-will-be-canceled-by-end-of-2027/13875/)). In a Jan‑2025 Gartner poll of 3,412, only ~130 of thousands of “agentic” vendors were judged to be building something real.
+
+**McKinsey** — *The State of AI in 2025: Agents, innovation, and transformation* (Nov 2025; via Forbes mirror, retrieved 2026‑06‑30) [V] ([Forbes](https://www.forbes.com/sites/josipamajic/2026/03/22/10-of-enterprise-functions-use-ai-agents-mckinsey-finds/)):
+- **23% of organizations are scaling** at least one agentic‑AI system; **39% are experimenting** (≈62% at least piloting).
+- But **no more than ~10% of respondents report scaling agents in any single business function** — depth lags breadth.
+
+**Deloitte** — *State of Generative AI in the Enterprise* (2026 wave, published 2026‑04‑24; 3,235 leaders / 24 countries; fetched) [V] ([Deloitte](https://www.deloitte.com/us/en/insights/topics/emerging-technologies/ai-agents-scaling-faster.html)):
+- Only **21% report a mature governance model** for agentic AI (≈80% lack one).
+- By 2027, respondents expect **74% at least moderate** agent use, **23% extensive**, **5% full business integration**.
+- Deloitte’s 2025 prediction of **25% of GenAI adopters running agent pilots in 2025 → 50% by 2027** is **[~]** (consistent across snippets, primary not fetched).
+
+> **Net read:** the “<1% → ~33% by 2028” arc is genuine and now corroborated across Gartner/McKinsey/Deloitte, but mid‑2026 reality is *early pilots, shallow per‑function depth, weak governance, and a coming cull of failed projects.* Present it as an S‑curve with real attrition, not a straight line to 65%.
+
+---
+
+## 5. The Crypto‑Native AI‑Agent Economy (on‑chain)
+
+No top‑tier research firm publishes a dedicated “AI‑agent **crypto**” market size, so this slice is built bottom‑up from on‑chain/token data and clearly labeled as such. The headline: **it is small relative to the software TAM, and it has cooled from its early‑2025 hype peak.**
+
+- **CoinGecko “AI Agents” token category:** **~$2.80B total market cap**, ~$271M 24h volume (2026‑06‑30) [V] ([CoinGecko categories API](https://api.coingecko.com/api/v3/coins/categories)). For scale, that entire crypto category is *smaller than a single year’s revenue assumption* in most of the §2 software forecasts.
+- **Token leaders (CoinGecko, 2026‑06‑30, all [V]):**
+
+| Token | Market cap | Price | Note |
+|---|---|---|---|
+| **Bittensor (TAO)** | ~$1.95B | $202.80 | Decentralized AI subnets; rank #41 |
+| **Fetch / ASI Alliance (FET)** | ~$387M | $0.1717 | rank #117; see merger note |
+| **Virtuals Protocol (VIRTUAL)** | ~$345M | $0.5253 | Agent‑launch platform on Base; rank #123 |
+| **elizaOS (ELIZAOS, ex‑ai16z)** | ~$3.96M | $0.00053 | Token collapsed from peak; framework still active |
+
+- **ASI Alliance status [~]:** the Fetch.ai + SingularityNET + Ocean “Artificial Superintelligence Alliance” token merger went live in 2024; **Ocean Protocol Foundation withdrew in Oct 2025**; the final FET→ASI ticker rebrand remains roadmap‑pending. (2026 reporting also references an Ocean‑vs‑Fetch token dispute — flagged for editorial check, not asserted here.)
+- **Virtuals Protocol [~]:** the largest agent‑launch platform reports on the order of **17,000–18,000+ agents launched** and a self‑reported cumulative “agentic GDP” in the high‑hundreds of millions, but figures are platform‑reported and conflicting across sources ([Tiger Research](https://reports.tiger-research.com/p/virtuals-protocol-acp-eng), 2026‑06‑30); its token (~$345M) is well off peak and monthly protocol revenue reportedly fell sharply through 2025. Treat all platform‑GDP claims as directional.
+- **elizaOS:** the open‑source agent framework remains healthy as *software* — **`elizaOS/eliza` 18,657★ / 5,573 forks**, **npm `@elizaos/core` 82,593 downloads/month** (2026‑06‑30) [V] — even as the associated token (rebranded ai16z→ELIZAOS) collapsed to ~$4M mcap. A clean example of **developer traction decoupling from token price.**
+
+> **Takeaway:** the durable signal in crypto‑native agents is **infrastructure and developer adoption (x402, elizaOS, Bittensor subnets)**, not token market caps, which round‑tripped through a 2024–25 hype cycle.
+
+---
+
+## 6. Funding Landscape
+
+**No verifiable single “crypto + AI‑agent total VC” figure exists** for 2025 or H1 2026 — CryptoRank/Messari/Galaxy did not yield a confirmable subtotal, and DefiLlama’s `/raises` endpoint is now paywalled (HTTP 402). We therefore report (a) the all‑AI topline and (b) named, individually‑sourced rounds.
+
+**Topline (CB Insights, *State of AI 2025*, fetched 2026‑06‑30)** [V] ([cbinsights.com](https://www.cbinsights.com/research/report/ai-trends-2025/)):
+- **$225.8B total private AI venture funding in 2025** (~2× 2024); LLM developers took ~41% (~$92.4B); OpenAI + Anthropic + xAI alone = $86.3B (38%). AI‑agent/infra was **~10% of 2025 AI acquisitions**. *(This is all‑AI, not agent‑specific — do not present as an agent‑only figure.)*
+- Q1 2025 blockchain/crypto VC ~$4.8B (strongest since 2022) — context only, not crypto‑AI‑specific [~].
+
+**Named rounds in the agent / crypto‑agent payments space** (each primary‑ or reputable‑sourced, retrieved 2026‑06‑30):
+
+| Company | Round | Amount | Lead(s) | Date | Source |
+|---|---|---|---|---|---|
+| **Kite** (agent‑payments L1) | Series A | $18M ($33M cum.) | PayPal Ventures, General Catalyst | 2025‑09‑02 | [PayPal newsroom](https://newsroom.paypal-corp.com/2025-09-02-Kite-Raises-18M-in-Series-A-Funding-To-Enforce-Trust-in-the-Agentic-Web) [V] |
+| **Catena Labs** (AI‑native bank) | Seed → Series A | $18M → $30M ($48M+ cum.) | a16z crypto; Acrew (A) | 2025‑05 → 2026‑05 | [Fortune](https://fortune.com/2026/05/20/catena-labs-series-a-sean-neville-ai-native-bank/) [V] |
+| **Nous Research** | Series A | $50M @ $1B token val. | Paradigm | 2025‑04 | [Fortune Crypto](https://fortune.com/crypto/2025/04/25/paradigm-nous-research-crypto-ai-venture-capital-deepseek-openai-blockchain/) [V] |
+| **Sentient** | Seed | $85M | Founders Fund, Pantera, Framework | 2024‑07 | [CoinDesk](https://www.coindesk.com/business/2024/07/02/peter-thiels-founders-fund-leads-85m-seed-investment-into-open-source-ai-platform-sentient) [V] |
+| **Story Protocol** (PIP Labs) | Series B | $80M @ $2.25B ($140M cum.) | a16z crypto | 2024‑08 | [CoinDesk](https://www.coindesk.com/business/2024/08/21/story-protocol-developer-raises-80m-series-b-led-by-a16z-for-intellectual-property-chain) [V] |
+| **Skyfire** (agent payments) | Seed | $8.5M ($9.5M w/ a16z CSX) | Brevan Howard Digital, Circle, Ripple | 2024‑08 | [Finextra](https://www.finextra.com/newsarticle/44621/skyfire-raises-85m-to-bring-autonomous-payments-to-ai-agents) [V] |
+
+> **Could not verify a discrete VC round** for Virtuals, elizaOS/Eliza Labs, Payman, or Halliday — Virtuals and elizaOS are token‑funded rather than conventional equity raises. Per the no‑hallucination rule, these are listed as **unverified** rather than assigned a number. **Catena’s two rounds are distinct** — do not merge or double‑count.
+
+---
+
+## 7. Application Layer and Market Sentiment
+
+**Application layer.** The pay‑as‑you‑go pattern the old doc described (agents paying per API call/article/dataset via 402, no subscriptions) is now backed by real rails (x402 npm at 1.08M downloads/mo, §1) and a live multi‑chain ecosystem (Base‑led; a Stripe x402 integration shipped Feb 2026 [~]; an x402 Foundation now lists Coinbase, Cloudflare, Google, Visa, AWS, Circle and Anthropic among participants [~] — [The Block](https://www.theblock.co/learn/391983/what-is-coinbases-x402-protocol), 2026‑06‑30). Agent‑marketplace and on‑chain‑finance use cases (SingularityNET/Fetch lineage, DeFi agent stacks with policy‑guarded keys) persist, but the breakout adoption metric of the year is **payment‑rail downloads and on‑chain transaction counts, not marketplace GMV.**
+
+**Market sentiment — prediction markets.** Crowd‑sourced odds are a useful real‑time sentiment gauge:
+
+- **Polymarket (gamma API, fetched live 2026‑06‑30)** [V]: in the “Which company has the best AI model (end of June)?” event, **Anthropic priced at 99.8% YES** with $2.45M on that leg (total event volume across legs in the millions; Z.ai leg carried the highest single volume at ~$5.1M) ([gamma‑api.polymarket.com](https://gamma-api.polymarket.com/events?slug=which-company-has-best-ai-model-end-of-june)).
+- **Polymarket category level [~]** (platform pages, re‑confirm before quoting): an “AI Agent” predictions category with ~**100+ active markets and ~$28.6M cumulative volume**; a separate “AGI” category (~103 markets); and an actively‑traded “**Will the AI bubble burst by end‑2026?**” market (~27% implied) — a direct read on bubble anxiety.
+- **Kalshi [~]** (market pages, snippet‑grade): a “best AI model” complex (~$6M volume) with **Claude favored ~65%**; “top AI company” with Anthropic ~57% vs OpenAI ~34%.
+
+> Only the API‑fetched Polymarket event is **[V]**; category totals and Kalshi figures are **[~]** and should be re‑pulled live before being quoted as fact.
+
+---
+
+## 8. Macro Framing — get the attributions right
+
+The old edition leaned on big round numbers. Two corrections, verified 2026‑06‑30:
+
+- **Jensen Huang — agentic AI as a “multi‑trillion‑dollar opportunity,” “the age of AI agentics is here.” REAL.** Said at the **CES 2025 keynote (Jan 6–7, 2025)** ([Fortune](https://fortune.com/2025/01/06/nvidias-jensen-huang-agentics-ai-robots-blackwell-gpu-ces-2025-toyota-autonomous-vehicles/)).
+- **The “$15 trillion economic impact” figure — fix the attribution.** This is **not** a McKinsey generative‑AI number. The widely‑cited **$15.7T by 2030 is PwC’s 2017 “Sizing the Prize” total‑AI GDP estimate**, routinely conflated with McKinsey’s figure. McKinsey’s actual number is **$2.6T–$4.4T/yr from generative AI** (*The economic potential of generative AI*, June 2023; [mckinsey.com](https://www.mckinsey.com/capabilities/tech-and-ai/our-insights/the-economic-potential-of-generative-ai-the-next-productivity-frontier)). Use **PwC for $15.7T, McKinsey for $2.6–4.4T** — and don’t imply either is agent‑specific.
+
+---
+
+## 9. What changed since the September 2025 edition
+
+| Topic | Sept 2025 doc | mid‑2026 (this edition) |
+|---|---|---|
+| Market size | “$7B → $196.6B @ 43.8%” presented as the projection | One of **9 estimates**; full **26%–49.6% CAGR spread** shown; families separated |
+| Emergen figure | “$82.7B @ 31.68%” (conservative) | Live page **revised to $52.4B @ 26.0%**; old number stale |
+| x402 | “announced May 2025,” qualitative | **Independent foundation**, 1.08M npm dl/mo, 6,217★, 100M+ Base tx (meme‑inflated) |
+| ERC‑8004 / 8001 | both “draft” | **8001 Final, 8004 Draft** (canonical repo, Aug 2025) |
+| Segment dollar splits | precise $ table | **Dropped as unverifiable**; replaced with sourced 2024 qualitative splits |
+| Adoption | “<1% → 33% → 65%” straight line | Same arc **+ counter‑signal**: >40% of agent projects cancelled by 2027; ≤10% per‑function depth |
+| $15T impact | implied McKinsey | **Re‑attributed to PwC**; McKinsey = $2.6–4.4T |
+| Funding | “a16z/Polychain backing the rails,” qualitative | **Named, sourced rounds** (Kite $18M, Catena $48M+, Nous $50M, Sentient $85M, Story $80M, Skyfire $8.5M) |
+| Sentiment | n/a | **Polymarket/Kalshi** prediction‑market odds added |
+
+---
+
+## 10. Provenance, confidence, and how to cite this
+
+- Machine‑readable figures: [`data/provenance.json`](./data/provenance.json) — each entry `{ id, label, value, unit, status, source, method, url, retrieved, tier }`, indexed in [`SOURCES.md`](./SOURCES.md), with firm‑by‑firm market sizes in [`data/market_size.json`](./data/market_size.json), token caps in [`data/ai_agent_tokens.json`](./data/ai_agent_tokens.json), rounds in [`data/funding.json`](./data/funding.json), and scenario formulas in [`data/models.json`](./data/models.json). Built and owned by the Data Acquisition workstream; this report cross‑checks against it and contributed the funding‑round, enterprise‑adoption‑depth, and macro‑attribution figures.
+- **[V] = verified** (ledger `status: verified`) from a fetched primary or reputable source on 2026‑06‑30. **[~] = directional** (ledger `snapshot` / `snapshot_pending`) — snippet‑grade, platform‑self‑reported, or the primary page blocked automated retrieval (Gartner, Grand View, Market.us all 403 bots; some Dune/x402scan dashboards are client‑rendered and need an API key). Re‑confirm **[~]** items before quoting as fact.
+- **No fabricated numbers.** Where a figure could not be verified (x402 USD volume, a crypto‑AI VC subtotal, exact segment dollar splits), we say so explicitly rather than invent one.
+
+### References (selected, retrieved 2026‑06‑30)
+
+1. x402 — [x402.org](https://www.x402.org/) · [whitepaper](https://www.x402.org/x402-whitepaper.pdf) · repo `api.github.com/repos/x402-foundation/x402` · npm `api.npmjs.org/downloads/point/last-month/x402`
+2. x402 adoption / on‑chain — [Chainalysis, 2026‑06‑03](https://www.chainalysis.com/blog/x402-agentic-payments-adoption/) · [The Block](https://www.theblock.co/learn/391983/what-is-coinbases-x402-protocol)
+3. L402 — [Lightning Labs docs](https://docs.lightning.engineering/the-lightning-network/l402)
+4. ERC‑8004 — [canonical source](https://raw.githubusercontent.com/ethereum/ERCs/master/ERCS/erc-8004.md) · ERC‑8001 — [canonical source](https://raw.githubusercontent.com/ethereum/ERCs/master/ERCS/erc-8001.md)
+5. Market size — Fortune BI [link](https://www.fortunebusinessinsights.com/ai-agents-market-111574) · Precedence [link](https://www.precedenceresearch.com/ai-agents-market) · Roots [link](https://www.rootsanalysis.com/AI-Agents-Market) · MarketsandMarkets [PRNewswire](https://www.prnewswire.com/news-releases/ai-agents-market-worth-52-62-billion-by-2030---exclusive-report-by-marketsandmarkets-302435486.html) · Grand View [PRNewswire](https://www.prnewswire.com/news-releases/ai-agents-market-size-to-hit-50-31-billion-by-2030-at-cagr-45-8---grand-view-research-inc-302447060.html) · Market.us [scoop mirror](https://scoop.market.us/agentic-ai-market-news/) · Mordor [link](https://www.mordorintelligence.com/industry-reports/agentic-ai-market) · Emergen [link](https://www.emergenresearch.com/industry-report/agentic-artificial-intelligence-market)
+6. Adoption — Gartner via [MES](https://www.mescomputing.com/news/ai/5-predictions-about-agentic-ai-from-gartner) & [PAW](https://www.predictiveanalyticsworld.com/machinelearningtimes/gartner-predicts-over-40-of-agentic-ai-projects-will-be-canceled-by-end-of-2027/13875/) · McKinsey via [Forbes](https://www.forbes.com/sites/josipamajic/2026/03/22/10-of-enterprise-functions-use-ai-agents-mckinsey-finds/) · [Deloitte](https://www.deloitte.com/us/en/insights/topics/emerging-technologies/ai-agents-scaling-faster.html)
+7. Tokens — [CoinGecko categories API](https://api.coingecko.com/api/v3/coins/categories) · [Bittensor](https://www.coingecko.com/en/coins/bittensor) · [Virtuals (Tiger Research)](https://reports.tiger-research.com/p/virtuals-protocol-acp-eng) · `api.github.com/repos/elizaOS/eliza`
+8. Funding — [CB Insights State of AI 2025](https://www.cbinsights.com/research/report/ai-trends-2025/) · Kite [PayPal](https://newsroom.paypal-corp.com/2025-09-02-Kite-Raises-18M-in-Series-A-Funding-To-Enforce-Trust-in-the-Agentic-Web) · Catena [Fortune](https://fortune.com/2026/05/20/catena-labs-series-a-sean-neville-ai-native-bank/) · Nous [Fortune](https://fortune.com/crypto/2025/04/25/paradigm-nous-research-crypto-ai-venture-capital-deepseek-openai-blockchain/) · Sentient [CoinDesk](https://www.coindesk.com/business/2024/07/02/peter-thiels-founders-fund-leads-85m-seed-investment-into-open-source-ai-platform-sentient) · Story [CoinDesk](https://www.coindesk.com/business/2024/08/21/story-protocol-developer-raises-80m-series-b-led-by-a16z-for-intellectual-property-chain) · Skyfire [Finextra](https://www.finextra.com/newsarticle/44621/skyfire-raises-85m-to-bring-autonomous-payments-to-ai-agents)
+9. Sentiment — [Polymarket gamma API](https://gamma-api.polymarket.com/events?slug=which-company-has-best-ai-model-end-of-june)
+10. Macro — Huang/CES [Fortune](https://fortune.com/2025/01/06/nvidias-jensen-huang-agentics-ai-robots-blackwell-gpu-ces-2025-toyota-autonomous-vehicles/) · McKinsey gen‑AI [link](https://www.mckinsey.com/capabilities/tech-and-ai/our-insights/the-economic-potential-of-generative-ai-the-next-productivity-frontier)
+
+---
+
+*Refreshed 2026‑06‑30 for PRO‑18 (Workstream B / PRO‑20). Replaces the September‑2025 edition. Numbers are stamped to their retrieval date and will drift; re‑pull `[~]` items before republication.*
