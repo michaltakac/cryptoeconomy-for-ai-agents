@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Two economies, one name — the AI-agent economy, with the dials shown</title>
+<meta name="description" content="An explorable essay: 'the AI-agent economy' is quoted as one number, but it isn't one. Move the dials behind the headline and see which economy you were betting on. Every figure traces to this repo's data/ folder." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Inter:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#f4efe1; --paper-sunk:#ece5d3; --ink:#1a1a17; --ink-soft:#6b655a;
+    --rule:#d8cfb8; --reader:#1a1a17; --reference:#9b8b66; --accent-warn:#a8541f; --link:#7a4a12;
+    --serif:"Source Serif 4",Iowan Old Style,Georgia,serif;
+    --sans:"Inter",system-ui,-apple-system,Segoe UI,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);
+    font-size:20px;line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  .wrap{max-width:38rem;margin:0 auto;padding:0 1.25rem}
+  h1{font-family:var(--serif);font-weight:400;font-size:44px;line-height:1.15;margin:0 0 .4em;letter-spacing:-.01em}
+  h2{font-family:var(--serif);font-weight:400;font-size:30px;line-height:1.2;margin:0}
+  h2 .rn{color:var(--ink-soft);font-size:.7em;letter-spacing:.05em;margin-right:.5em}
+  .h3{font-family:var(--sans);font-weight:600;font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin:0}
+  p{margin:0 0 1.1em}
+  a{color:var(--link);text-decoration:underline;text-underline-offset:2px}
+  b{font-weight:600}
+  .mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+  .deck{font-size:22px;color:var(--ink);margin:0 0 1.4em}
+  .lead-in{font-size:21px;margin:0 0 1.2em}
+  .pullquote{font-family:var(--serif);font-style:italic;font-size:26px;line-height:1.35;
+    border-left:2px solid var(--reference);padding-left:1.1rem;margin:2.2rem 0;color:var(--ink)}
+  .figure-note{font-family:var(--sans);font-size:15px;line-height:1.5;color:var(--ink-soft)}
+  .margin-note{font-family:var(--sans);font-size:14px;color:var(--ink-soft);
+    border-top:1px solid var(--rule);padding-top:.5rem;margin:1.2rem 0}
+  header.masthead{padding:4.5rem 0 1rem}
+  header.masthead .kicker{font-family:var(--sans);font-size:13px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--ink-soft);margin-bottom:1.5rem}
+  section.act{padding:3.5rem 0 1rem}
+  .act-head{display:flex;align-items:baseline;gap:.6rem;margin-bottom:1.4rem}
+
+  /* progress rail */
+  .progress{position:fixed;top:0;left:0;right:0;height:3px;display:flex;gap:2px;
+    padding:0 .25rem;z-index:50;pointer-events:none}
+  .progress .mark{flex:1;background:var(--rule);transition:background .2s ease-out}
+  .progress .mark.on{background:var(--reference)}
+
+  /* interactive stage (figure breakout) */
+  .stage{background:var(--paper-sunk);border:1px solid var(--rule);border-radius:3px;
+    max-width:52rem;margin:1.8rem auto;padding:1.25rem 1.4rem 1.5rem}
+  .stage-head{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;
+    flex-wrap:wrap;border-bottom:1px solid var(--rule);padding-bottom:.7rem;margin-bottom:1rem}
+  .readout{font-family:var(--mono);font-size:24px;font-weight:500;white-space:nowrap}
+  .badge{font-family:var(--sans);font-size:12px;letter-spacing:.03em;padding:.12rem .5rem;
+    border-radius:99px;border:1px solid var(--rule);color:var(--ink-soft);background:var(--paper)}
+  .badge-live{color:#2c5a2c;border-color:#9bbf9b}
+  .badge-pending{color:var(--accent-warn);border-color:#d8b08c}
+
+  .controls{display:grid;gap:.9rem;margin:1rem 0}
+  .ctl{display:grid;grid-template-columns:1fr;gap:.3rem}
+  .ctl-label{font-family:var(--sans);font-size:13px;color:var(--ink-soft)}
+  .ctl-val{font-size:16px;font-weight:500}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:3px;
+    background:var(--rule);border-radius:2px;outline-offset:4px;margin:.5rem 0}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+    width:18px;height:18px;border-radius:50%;background:var(--ink);cursor:pointer;border:none;
+    transition:transform .12s ease}
+  input[type=range]::-webkit-slider-thumb:active{transform:scale(1.15)}
+  input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;
+    background:var(--ink);cursor:pointer;border:none}
+  input[type=range]:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
+  .track-ends{display:flex;justify-content:space-between;font-family:var(--sans);
+    font-size:12px;color:var(--ink-soft);margin-top:-.2rem}
+
+  /* segmented toggle */
+  .seg{display:inline-flex;border:1px solid var(--rule);border-radius:3px;overflow:hidden;width:max-content}
+  .seg-btn{font-family:var(--sans);font-size:14px;background:var(--paper);border:none;
+    padding:.35rem .8rem;cursor:pointer;color:var(--ink-soft);border-right:1px solid var(--rule)}
+  .seg-btn:last-child{border-right:none}
+  .seg-btn.on{background:var(--ink);color:var(--paper)}
+  .seg-btn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+  /* charts */
+  .chart{width:100%;height:auto;display:block;margin:.4rem 0 .6rem}
+  .grid{stroke:var(--rule);stroke-width:1}
+  .axis{font-family:var(--sans);font-size:11px;fill:var(--ink-soft)}
+  .ref-curve{fill:none;stroke:var(--reference);stroke-width:1.3;opacity:.7}
+  .reader-curve{fill:none;stroke:var(--reader);stroke-width:2.5}
+  .reader-dot{fill:var(--reader)}
+  .reader-lbl{fill:var(--ink);font-size:13px}
+  .ref-anchor{fill:var(--accent-warn);stroke:var(--paper-sunk);stroke-width:1.5}
+  .anchor-lbl{fill:var(--accent-warn)}
+
+  /* M2 treemap */
+  .treemap{display:grid;gap:.7rem;margin:.6rem 0}
+  .tm-row{display:grid;gap:.3rem}
+  .tm-head{display:flex;justify-content:space-between;font-family:var(--sans);font-size:14px}
+  .tm-name{color:var(--ink)} .tm-val{color:var(--ink-soft)}
+  .tm-bar{height:14px;background:var(--ink);border-radius:2px;min-width:2px;transition:width .12s ease-out}
+  .tm-inputs{display:flex;align-items:center;gap:.5rem}
+  .tm-inputs input[type=range]{flex:1}
+  .tm-num{width:4.2rem;font-family:var(--mono);font-size:14px;padding:.2rem .35rem;
+    border:1px solid var(--rule);border-radius:3px;background:var(--paper)}
+  .tm-pct{font-family:var(--sans);font-size:13px;color:var(--ink-soft)}
+
+  /* M3 anchors */
+  .anchors{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin:1rem 0}
+  .anchor-card{background:var(--paper);border:1px solid var(--rule);border-radius:3px;padding:.7rem .85rem}
+  .anchor-k{font-family:var(--sans);font-size:12px;color:var(--ink-soft)}
+  .anchor-v{font-size:22px;margin:.2rem 0}
+  .anchor-v.dim{color:var(--ink-soft)}
+  .anchor-sub{font-family:var(--sans);font-size:12px;color:var(--ink-soft)}
+
+  /* honesty flags */
+  .honesty{font-family:var(--sans);font-size:14px;line-height:1.5;color:var(--ink);
+    background:var(--paper);border:1px solid #d8b08c;border-radius:3px;padding:.6rem .8rem;margin:.4rem 0 1rem}
+  .warn-tag{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--accent-warn);margin-right:.45rem}
+  .attrition{margin-top:1rem}
+  .stub p{margin:.5rem 0}
+
+  .m6-sentence{font-size:22px;line-height:1.45;margin:1rem 0 0}
+
+  footer{padding:3.5rem 0 5rem}
+  footer .src{font-family:var(--sans);font-size:14px;color:var(--ink-soft);
+    border-top:1px solid var(--rule);padding-top:1.2rem}
+
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);border:0}
+
+  @media (max-width:640px){
+    body{font-size:18px}
+    h1{font-size:34px}
+    .stage{padding:1rem 1rem 1.2rem}
+    .anchors{grid-template-columns:1fr}
+    .readout{font-size:20px}
+  }
+  @media (pointer:coarse){
+    input[type=range]::-webkit-slider-thumb{width:26px;height:26px}
+    input[type=range]::-moz-range-thumb{width:26px;height:26px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *{transition:none!important}
+  }
+</style>
+</head>
+<body>
+<div class="progress" aria-hidden="true">
+  <span class="mark"></span><span class="mark"></span><span class="mark"></span>
+  <span class="mark"></span><span class="mark"></span><span class="mark"></span>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="kicker">An explorable essay · the dials behind the headline</div>
+    <h1>Two economies, one name</h1>
+    <p class="deck">“The AI-agent economy” is quoted as a single number. It isn’t one. It’s a large, loosely-defined software market sitting next to a small, cooled, crypto-native slice — and most coverage blurs them into one headline. This essay hands you the dials behind that headline. Move them, and watch which economy you were actually betting on.</p>
+    <p>Search “AI agent market size” and you’ll get a confident figure. Search again and you’ll get a different one — off by five or six times. They’re not contradicting each other so much as quietly disagreeing about what counts. Before we explain why, we’ll let you do the thing every forecast does behind closed doors: pick the assumptions.</p>
+    <p class="margin-note">Every interactive here is driven by data in this repo’s <span class="mono">data/</span> folder. Where a default is uncertain, we say so on the figure itself. The committed snapshot renders first; live figures (where an API allows it) layer on top, and a badge tells you which you’re seeing.</p>
+  </div>
+</header>
+
+<main>
+  <!-- ACT I -->
+  <section class="act" id="act1">
+    <div class="wrap">
+      <div class="act-head"><h2><span class="rn">I</span>The headline is a mirage</h2></div>
+      <p class="lead-in">Here’s the number you’ve probably seen. Now drag it.</p>
+    </div>
+    <div class="stage" id="m1">
+      <div class="stage-head">
+        <p class="h3">Market-size scenario dial</p>
+        <span class="readout mono">—</span>
+      </div>
+      <div class="stage-body"></div>
+      <div class="sr-only sr-live" aria-live="polite"></div>
+    </div>
+    <div class="wrap">
+      <p>You just moved a single forecast across a $50-billion-to-$300-billion range without inventing anything — every CAGR on that slider is a number a real research firm published this year. The honest answer to “how big is the agent economy?” isn’t a point. It’s the width of the band you just swept. <b>The spread is the finding.</b> Nine firms disagree by five-to-six times on definition alone — so the rest of this essay is about what <i>doesn’t</i> move when the headline does.</p>
+      <p class="figure-note">CAGR — compound annual growth rate: the single yearly percentage a market would have to grow at, every year, to reach a forecast. Reference curves are nine published firm forecasts from <span class="mono">data/market_size.json</span>; your black line is overlaid as “your scenario.”</p>
+      <p class="pullquote">Every confident forecast is a set of assumptions someone declined to show you.</p>
+    </div>
+  </section>
+
+  <!-- ACT II -->
+  <section class="act" id="act2">
+    <div class="wrap">
+      <div class="act-head"><h2><span class="rn">II</span>What’s actually inside it</h2></div>
+      <p class="lead-in">“AI agents” isn’t one thing being measured. It’s a bundle. Drag the tiles to set what you think the mix is.</p>
+    </div>
+    <div class="stage" id="m2">
+      <div class="stage-head">
+        <p class="h3">What “AI agents” actually means</p>
+        <span class="readout mono">—</span>
+      </div>
+      <div class="stage-body"></div>
+      <div class="sr-only sr-live" aria-live="polite"></div>
+    </div>
+    <div class="wrap">
+      <p>The same total dollar figure tells four different stories depending on how you slice it — algorithmic trading, call-centre automation, supply chain, and a small crypto-native slice all ride under one label. That crypto slice, the part this essay is really about, is only a couple of percent of the bundle. So when someone quotes “the AI-agent market,” ask: <i>which segment did they have in mind?</i> The answer usually decides the number.</p>
+    </div>
+  </section>
+
+  <!-- ACT III -->
+  <section class="act" id="act3">
+    <div class="wrap">
+      <div class="act-head"><h2><span class="rn">III</span>The real engine</h2></div>
+      <p>Forget token prices for a moment and watch the plumbing. The breakout pattern is <b>x402</b> — a way for software to pay for a single web request on the spot, by answering an “HTTP 402 Payment Required” response with a small stablecoin payment, no account or subscription.</p>
+      <p class="lead-in">Set how many machine requests happen a year, how many of them pay, and the price per call.</p>
+    </div>
+    <div class="stage" id="m3">
+      <div class="stage-head">
+        <p class="h3">What if agents actually paid per call?</p>
+        <span class="readout mono">—</span>
+      </div>
+      <div class="stage-body"></div>
+      <div class="sr-only sr-live" aria-live="polite"></div>
+    </div>
+    <div class="wrap">
+      <p>Tiny prices times machine-scale volumes is the whole game: nudge three sliders and the implied economy swings from trivial to enormous. That’s the <i>simulation</i>. Next to it sits the one number we can actually count today — x402 software is downloaded about <b>1.08 million times a month</b>, a real signal that developers are wiring this up, even while the on-chain dollar volume is still being measured. <b>Adoption of the rails, not the token price, is the thing to watch.</b></p>
+      <p class="margin-note">The downloads figure is a live proxy from <span class="mono">data/x402_adoption.json</span> (re-fetched from the npm registry when your browser allows it); the on-chain dollar total is pending a verified source and is labelled so on the figure — never faked to zero.</p>
+    </div>
+  </section>
+
+  <!-- ACT IV -->
+  <section class="act" id="act4">
+    <div class="wrap">
+      <div class="act-head"><h2><span class="rn">IV</span>Price ≠ traction</h2></div>
+      <p class="lead-in">Here are the crypto-native agent projects. Switch the lens — rank them by token market value, then by how much developers actually use them.</p>
+    </div>
+    <div class="stage" id="m4">
+      <div class="stage-head">
+        <p class="h3">Rank by price, or by who’s building?</p>
+        <span class="readout mono">—</span>
+      </div>
+      <div class="stage-body"></div>
+      <div class="sr-only sr-live" aria-live="polite"></div>
+    </div>
+    <div class="wrap">
+      <p>One entry is <b>TAO</b>, the token of Bittensor — a network that pays contributors for useful machine-learning work done by its “subnets.” Flip the lens and the ranking reshuffles. A framework like elizaOS sinks near the bottom by token value (about $4M) but climbs near the top by developer use (≈82,600 installs a month). The crypto-native slice cooled off its 2024–25 peak — but the <i>code</i> didn’t cool with it. Price and traction came apart. If you only watched token caps, you missed the part that kept growing.</p>
+    </div>
+  </section>
+
+  <!-- ACT V -->
+  <section class="act" id="act5">
+    <div class="wrap">
+      <div class="act-head"><h2><span class="rn">V</span>Will enterprises actually adopt?</h2></div>
+      <p class="lead-in">Most adoption stories are drawn as a smooth S-curve. Set its ceiling, its steepness, and the year it bends.</p>
+    </div>
+    <div class="stage" id="m5">
+      <div class="stage-head">
+        <p class="h3">The adoption curve — and its attrition</p>
+        <span class="readout mono">—</span>
+      </div>
+      <div class="stage-body"></div>
+      <div class="sr-only sr-live" aria-live="polite"></div>
+    </div>
+    <div class="wrap">
+      <p>The curve is real: enterprise use climbs from under 1% in 2025 toward roughly a third by 2028. But a clean line hides the attrition — more than 40% of agent projects get cancelled, and where agents do land, they often run shallow. Drag the inflection earlier and the optimism is obvious; the gap between <i>adopting</i> and <i>adopting deeply</i> is the part the smooth curve quietly skips.</p>
+    </div>
+  </section>
+
+  <!-- ACT VI -->
+  <section class="act" id="act6">
+    <div class="wrap">
+      <div class="act-head"><h2><span class="rn">VI</span>Build your own future</h2></div>
+      <p class="lead-in">Last move. Compose the three levers the whole essay has been pulling apart.</p>
+    </div>
+    <div class="stage" id="m6">
+      <div class="stage-head">
+        <p class="h3">Your 2030</p>
+        <span class="readout mono">—</span>
+      </div>
+      <div class="stage-body"></div>
+      <div class="sr-only sr-live" aria-live="polite"></div>
+    </div>
+    <div class="wrap">
+      <p>Notice what just happened: by setting three plain-language dials you reproduced the entire five-to-six-times spread from where we started — except now the assumptions are yours, in the open, instead of buried in someone’s slide. That’s the whole argument. The agent economy isn’t one number, and the honest version of any forecast hands you the controls. The durable signal underneath all of it isn’t a token price or a single firm’s headline — it’s whether agents actually transact. Watch the rails.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="src">Every figure in this essay traces to a named source in <a href="./data/provenance.json"><span class="mono">data/provenance.json</span></a>. Two figures (the segment split and the adoption anchors) ship on flagged, unverified defaults by design — their purpose is to let you distrust them. Modeled outputs are labelled “your scenario / modeled” and are never presented as measured fact. Last updated 2026-06-30. · <a href="./market-research.md">research notes</a> · <a href="./SOURCES.md">sources</a></p>
+  </div>
+</footer>
+
+<script type="module" src="./app.js"></script>
+</body>
+</html>
