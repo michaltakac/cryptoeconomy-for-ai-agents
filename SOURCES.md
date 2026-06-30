@@ -31,6 +31,7 @@ Every figure is tagged **live** (the site fetches it client-side, falling back t
 | Bittensor (TAO) price / mcap | **$202.77 / $1.946 B** | CoinGecko | `/coins/markets?ids=bittensor` | live |
 | ASI Alliance (FET) mcap | **$387.6 M** | CoinGecko | `/coins/markets?ids=fetch-ai` | live |
 | Virtuals Protocol (VIRTUAL) mcap | **$345.3 M** | CoinGecko | `/coins/markets?ids=virtual-protocol` | live |
+| elizaOS (ELIZAOS, ex-ai16z) mcap | **$4.0 M** | CoinGecko | `/coins/markets?ids=elizaos` | live |
 | USDC circulating supply | **$73.77 B** | DefiLlama | `stablecoins.llama.fi/stablecoins` | live |
 | Total stablecoin market cap | **$311.4 B** | DefiLlama | same | live |
 | DeFi protocols tracked | **7,750** | DefiLlama | `api.llama.fi/protocols` | live |

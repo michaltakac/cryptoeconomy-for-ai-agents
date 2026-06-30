@@ -578,10 +578,10 @@ function buildM5(stage, models) {
   const realAnchors = def.real_anchors;
 
   const body = $(".stage-body", stage);
-  badge(stage, `Gartner anchors · snapshot`, "snapshot");
+  badge(stage, `verified Gartner anchors · snapshot`, "snapshot");
 
-  body.append(el("p", { class: "honesty",
-    html: `<span class="warn-tag">LEGACY — RE-SOURCE</span> Anchor points are flagged for re-sourcing before publish; shown with their origin so you can judge them.` }));
+  body.append(el("p", { class: "figure-note",
+    html: `Anchor points are the verified Gartner datapoints (under 1% in 2024 → ~33% by 2028; <span class="mono">gartner-share-2028-verified</span> in <span class="mono">data/provenance.json</span>). The curve between and beyond them is your scenario.` }));
 
   const W = 640, H = 300, P = { t: 16, r: 16, b: 34, l: 44 };
   const x0 = 2024, x1 = 2032;
@@ -603,7 +603,7 @@ function buildM5(stage, models) {
   realAnchors.forEach((a) => {
     svg.append(svgEl("circle", { cx: sx(a.year), cy: sy(a.value), r: 5, class: "ref-anchor" }));
     const t = svgEl("text", { x: sx(a.year), y: sy(a.value) - 10, class: "axis anchor-lbl", "text-anchor": "middle" });
-    t.textContent = `${a.year}: ${(a.value * 100).toFixed(0)}% (legacy)`; svg.append(t);
+    t.textContent = `${a.year}: ${(a.value * 100).toFixed(0)}% (verified)`; svg.append(t);
   });
   body.append(svg);
 

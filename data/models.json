@@ -59,8 +59,8 @@
         "inflection_year": { "default": 2027.5, "min": 2026, "max": 2032 }
       },
       "real_anchors": [
-        { "year": 2025, "value": 0.01, "source_ref": "gartner-adoption-2025", "note": "<1% today (LEGACY claim — re-source before publish)." },
-        { "year": 2028, "value": 0.33, "source_ref": "gartner-adoption-2028", "note": "~33% by 2028 (LEGACY claim — re-source before publish)." }
+        { "year": 2024, "value": 0.01, "source_ref": "gartner-share-2028-verified", "note": "<1% in 2024 (verified — Gartner press release via mirror; field share_2024)." },
+        { "year": 2028, "value": 0.33, "source_ref": "gartner-share-2028-verified", "note": "~33% by 2028 (verified — Gartner press release via mirror; field share_2028)." }
       ],
       "output": "Adoption % curve fit to anchor datapoints; reader moves inflection/ceiling."
     },

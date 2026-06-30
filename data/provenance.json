@@ -40,6 +40,11 @@
       "status": "verified", "source": "CoinGecko", "url": "https://api.coingecko.com/api/v3/coins/markets?ids=virtual-protocol", "retrieved": "2026-06-30", "tier": "live"
     },
     {
+      "id": "cg-elizaos-mcap", "label": "elizaOS (ELIZAOS, ex-ai16z) market cap", "value": 4017187, "unit": "USD",
+      "status": "verified", "source": "CoinGecko", "method": "live API /coins/markets?ids=elizaos; price $0.00053772, rank 1695, vol24h $639,101 (token migrated ai16z→ELIZAOS). Sources the Act IV '~$4M' figure.",
+      "url": "https://api.coingecko.com/api/v3/coins/markets?ids=elizaos", "retrieved": "2026-06-30", "tier": "live"
+    },
+    {
       "id": "usdc-circulating", "label": "USDC circulating supply", "value": 73767100812, "unit": "USD",
       "status": "verified", "source": "DefiLlama", "url": "https://stablecoins.llama.fi/stablecoins?includePrices=true", "retrieved": "2026-06-30", "tier": "live"
     },
