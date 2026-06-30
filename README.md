@@ -1,5 +1,9 @@
 # Crypto Economy for AI Agents
 
+### ▶ Read it live: **[michaltakac.github.io/cryptoeconomy-for-ai-agents](https://michaltakac.github.io/cryptoeconomy-for-ai-agents/)**
+
+An explorable essay — *"Two economies, one name."* "The AI-agent economy" gets quoted as a single number, but it isn't one. Move the dials behind the headline and see which economy you were betting on. Every figure on the page traces back to a snapshot in this repo's [`data/`](./data/) folder.
+
 ## Overview
 
 This repository contains comprehensive market research and analysis on the emerging intersection of cryptocurrency economics and AI agents. It documents how blockchain technology is enabling autonomous AI agents to participate in the global economy as independent economic actors.
@@ -29,8 +33,24 @@ The goal of this repository is to provide a thorough understanding of:
 - Growth rate comparisons across research firms
 - Enterprise adoption timeline
 
+### 🧭 Explorable Essay (the live site)
+[**index.html**](./index.html) — six interactive modules that let you move the assumptions behind each headline number (market-size spread, enterprise adoption S-curve, the x402 infrastructure breakout, token-cap vs. developer traction, and more). Served live at the URL above; no build step, runs as static HTML.
+
 ### 📄 Source Materials
 - **cryptoeconomics-for-ai-agents-2025.pdf** - Original research document
+
+## Data Layer & Provenance
+
+The site has **no hidden numbers**. It is a static, build-free page (vanilla HTML + an ES-module [`app.js`](./app.js)) that runs on committed JSON snapshots in [`data/`](./data/) — these are the *floor*. Where a free public API exists (e.g. CoinGecko token caps), `app.js` attempts a live re-fetch with a short timeout and, on any failure, gracefully falls back to the committed snapshot. A per-figure badge tells you whether you're seeing **live** or **snapshot** data, so the page always renders — even offline, on a throttled network, or when an API is down.
+
+Provenance is enforced, not aspirational:
+
+- [**`data/provenance.json`**](./data/provenance.json) — the ledger. **Every figure** in the research doc and on the site has an entry mapping it to `{value, source, url, retrieval date, method}` with a `status` of `verified`, `modeled`, `snapshot_pending`, or `legacy_unverified`. No number ships without one.
+- [**`data/models.json`**](./data/models.json) — the assumptions behind every *modeled* (interactive) figure, so the math you steer with the dials is inspectable.
+- [**`SOURCES.md`**](./SOURCES.md) — the human-readable index of sources.
+- [**`data/build-snapshots.mjs`**](./data/build-snapshots.mjs) — regenerates the snapshots from their sources.
+
+The rule: if a number can't point to a verified or clearly-labeled-modeled entry in the ledger, it doesn't render.
 
 ## Key Findings (refreshed mid‑2026 — every figure cited + retrieval‑dated in [`market-research.md`](./market-research.md) and [`data/provenance.json`](./data/provenance.json))
 
