@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Two economies, one name — the AI-agent economy, with the dials shown</title>
-<meta name="description" content="An explorable essay: 'the AI-agent economy' is quoted as one number, but it isn't one. Move the dials behind the headline and see which economy you were betting on. Every figure traces to this repo's data/ folder." />
+<meta name="description" content="An explorable essay: 'the AI-agent economy' is quoted as one number, but it isn't one. Move the dials behind the headline and see which economy you were betting on. Every figure is cited to a named public source — research firms, on-chain APIs, and primary reports — listed in full at the end." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Inter:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -142,6 +142,26 @@
 
   .m6-sentence{font-size:22px;line-height:1.45;margin:1rem 0 0}
 
+  /* sources */
+  .source-list{margin:1.4rem 0 0}
+  .src-group{margin:0 0 1.6rem}
+  .src-group-h{font-family:var(--sans);font-weight:600;font-size:13px;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--ink-soft);margin:0 0 .7rem;
+    border-bottom:1px solid var(--rule);padding-bottom:.35rem}
+  ol.src-items{list-style:none;margin:0;padding:0;counter-reset:src}
+  ol.src-items li{font-family:var(--sans);font-size:14.5px;line-height:1.5;color:var(--ink);
+    padding:.45rem 0;border-bottom:1px solid var(--rule);display:grid;
+    grid-template-columns:1.6rem 1fr;gap:.3rem 0}
+  ol.src-items li::before{counter-increment:src;content:counter(src);color:var(--ink-soft);
+    font-variant-numeric:tabular-nums;font-size:13px}
+  .src-name{font-weight:600}
+  .src-what{color:var(--ink-soft)}
+  .src-meta{font-size:12.5px;color:var(--ink-soft);margin-top:.1rem}
+  .src-tag{font-family:var(--sans);font-size:10.5px;font-weight:600;letter-spacing:.04em;
+    text-transform:uppercase;padding:.05rem .4rem;border-radius:99px;border:1px solid var(--rule);
+    color:var(--ink-soft);margin-left:.4rem;vertical-align:.08em}
+  .src-tag.live{color:#2c5a2c;border-color:#9bbf9b}
+
   footer{padding:3.5rem 0 5rem}
   footer .src{font-family:var(--sans);font-size:14px;color:var(--ink-soft);
     border-top:1px solid var(--rule);padding-top:1.2rem}
@@ -169,6 +189,7 @@
 <div class="progress" aria-hidden="true">
   <span class="mark"></span><span class="mark"></span><span class="mark"></span>
   <span class="mark"></span><span class="mark"></span><span class="mark"></span>
+  <span class="mark"></span>
 </div>
 
 <header class="masthead">
@@ -177,7 +198,7 @@
     <h1>Two economies, one name</h1>
     <p class="deck">“The AI-agent economy” is quoted as a single number. It isn’t one. It’s a large, loosely-defined software market sitting next to a small, cooled, crypto-native slice — and most coverage blurs them into one headline. This essay hands you the dials behind that headline. Move them, and watch which economy you were actually betting on.</p>
     <p>Search “AI agent market size” and you’ll get a confident figure. Search again and you’ll get a different one — off by five or six times. They’re not contradicting each other so much as quietly disagreeing about what counts. Before we explain why, we’ll let you do the thing every forecast does behind closed doors: pick the assumptions.</p>
-    <p class="margin-note">Every interactive here is driven by data in this repo’s <span class="mono">data/</span> folder. Where a default is uncertain, we say so on the figure itself. The committed snapshot renders first; live figures (where an API allows it) layer on top, and a badge tells you which you’re seeing.</p>
+    <p class="margin-note">Every figure here is cited to a named public source — the research firms, on-chain APIs, and primary reports listed in <a href="#sources">Sources</a> at the end. Where a default is uncertain, we say so on the figure itself. A recent snapshot renders first; live figures (where an API allows it) refresh on top, and a badge tells you which you’re seeing.</p>
   </div>
 </header>
 
@@ -198,7 +219,7 @@
     </div>
     <div class="wrap">
       <p>You just moved a single forecast across a $50-billion-to-$300-billion range without inventing anything — every CAGR on that slider is a number a real research firm published this year. The honest answer to “how big is the agent economy?” isn’t a point. It’s the width of the band you just swept. <b>The spread is the finding.</b> Nine firms disagree by five-to-six times on definition alone — so the rest of this essay is about what <i>doesn’t</i> move when the headline does.</p>
-      <p class="figure-note">CAGR — compound annual growth rate: the single yearly percentage a market would have to grow at, every year, to reach a forecast. Reference curves are nine published firm forecasts from <span class="mono">data/market_size.json</span>; your black line is overlaid as “your scenario.”</p>
+      <p class="figure-note">CAGR — compound annual growth rate: the single yearly percentage a market would have to grow at, every year, to reach a forecast. The reference curves are nine forecasts published this year by named research firms — Fortune Business Insights, Grand View, Precedence, Roots Analysis, Mordor, Emergen, Market.us and MarketsandMarkets (each cited in <a href="#sources">Sources</a>); your black line is overlaid as “your scenario.”</p>
       <p class="pullquote">Every confident forecast is a set of assumptions someone declined to show you.</p>
     </div>
   </section>
@@ -239,7 +260,7 @@
     </div>
     <div class="wrap">
       <p>Tiny prices times machine-scale volumes is the whole game: nudge three sliders and the implied economy swings from trivial to enormous. That’s the <i>simulation</i>. Next to it sits the one number we can actually count today — x402 software is downloaded about <b>1.08 million times a month</b>, a real signal that developers are wiring this up, even while the on-chain dollar volume is still being measured. <b>Adoption of the rails, not the token price, is the thing to watch.</b></p>
-      <p class="margin-note">The downloads figure is a live proxy from <span class="mono">data/x402_adoption.json</span> (re-fetched from the npm registry when your browser allows it); the on-chain dollar total is pending a verified source and is labelled so on the figure — never faked to zero.</p>
+      <p class="margin-note">The downloads figure comes straight from the <a href="https://api.npmjs.org/downloads/point/last-month/x402" rel="noopener">npm registry</a> (re-fetched live when your browser allows it); the on-chain dollar total is pending a verified source and is labelled so on the figure — never faked to zero.</p>
     </div>
   </section>
 
@@ -299,11 +320,19 @@
       <p>Notice what just happened: by setting three plain-language dials you reproduced the entire five-to-six-times spread from where we started — except now the assumptions are yours, in the open, instead of buried in someone’s slide. That’s the whole argument. The agent economy isn’t one number, and the honest version of any forecast hands you the controls. The durable signal underneath all of it isn’t a token price or a single firm’s headline — it’s whether agents actually transact. Watch the rails.</p>
     </div>
   </section>
+  <!-- SOURCES -->
+  <section class="act" id="sources">
+    <div class="wrap">
+      <div class="act-head"><h2><span class="rn">·</span>Sources</h2></div>
+      <p>Every number in this essay is a real figure from a named, public source. Nothing is invented. Each entry below links to where the figure came from, with the date it was retrieved; figures marked <b>live</b> are re-fetched in your browser from an open API, the rest are a dated snapshot. Modeled outputs — the curves and totals you generate by moving the dials — are labelled “your scenario / modeled” and are never presented as measured fact.</p>
+      <div id="source-list" class="source-list"><p class="figure-note">Loading citations…</p></div>
+    </div>
+  </section>
 </main>
 
 <footer>
   <div class="wrap">
-    <p class="src">Every figure in this essay traces to a named source in <a href="./data/provenance.json"><span class="mono">data/provenance.json</span></a>. One figure (the segment split) ships on a flagged, unverified default by design — its purpose is to let you distrust it; the enterprise-adoption anchors are verified Gartner datapoints. Modeled outputs are labelled “your scenario / modeled” and are never presented as measured fact. Last updated 2026-06-30. · <a href="./market-research.md">research notes</a> · <a href="./SOURCES.md">sources</a></p>
+    <p class="src">Built on public data, fully cited above. One figure (the segment split) ships on a flagged, unverified default by design — its purpose is to let you distrust it; the enterprise-adoption anchors are verified Gartner datapoints. Last updated 30 June 2026. · <a href="#sources">Sources</a> · <a href="./market-research.md">research notes</a></p>
   </div>
 </footer>
 

@@ -581,7 +581,7 @@ function buildM5(stage, models) {
   badge(stage, `verified Gartner anchors · snapshot`, "snapshot");
 
   body.append(el("p", { class: "figure-note",
-    html: `Anchor points are the verified Gartner datapoints (under 1% in 2024 → ~33% by 2028; <span class="mono">gartner-share-2028-verified</span> in <span class="mono">data/provenance.json</span>). The curve between and beyond them is your scenario.` }));
+    html: `Anchor points are verified Gartner datapoints (under 1% in 2024 → ~33% by 2028; from Gartner’s 2025 agentic-AI briefing, cited in <a href="#sources">Sources</a>). The curve between and beyond them is your scenario.` }));
 
   const W = 640, H = 300, P = { t: 16, r: 16, b: 34, l: 44 };
   const x0 = 2024, x1 = 2032;
@@ -672,9 +672,87 @@ function buildM6(stage, models) {
 }
 
 /* ============================================================
+ * Sources: render the provenance ledger as reader-facing citations
+ * (named sources + links + retrieval dates), never as file paths.
+ * ========================================================== */
+const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+function fmtDate(iso) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || "");
+  if (!m) return iso || "";
+  return `${+m[3]} ${MONTHS[+m[2] - 1]} ${m[1]}`;
+}
+const FIRM_RE = /Fortune Business|Emergen|Roots Analysis|Precedence|Mordor|Market\.us|Grand View|MarketsandMarkets/i;
+
+async function buildSources() {
+  const host = $("#source-list");
+  if (!host) return;
+  let figs;
+  try {
+    const prov = await fetch("./data/provenance.json").then((r) => r.json());
+    figs = (prov.figures || []).filter((f) => f && f.url && f.source);
+  } catch (e) {
+    host.replaceChildren(el("p", { class: "figure-note",
+      text: "Source citations could not be loaded right now — see the research notes linked below." }));
+    return;
+  }
+
+  // Dedupe by source name; collect what each backs, latest retrieval date, live-ness.
+  const bySource = new Map();
+  for (const f of figs) {
+    let g = bySource.get(f.source);
+    if (!g) { g = { source: f.source, url: f.url, labels: [], retrieved: "", live: false }; bySource.set(f.source, g); }
+    if (f.label && !g.labels.includes(f.label)) g.labels.push(f.label);
+    if ((f.retrieved || "") > g.retrieved) g.retrieved = f.retrieved || "";
+    if (f.tier === "live") g.live = true;
+  }
+
+  const groups = [
+    { title: "Live market & on-chain data", test: (g) => g.live },
+    { title: "Market-size forecasts (nine research firms)", test: (g) => !g.live && FIRM_RE.test(g.source) },
+    { title: "Reports, funding rounds & predictions", test: (g) => !g.live && !FIRM_RE.test(g.source) },
+  ];
+  const all = [...bySource.values()];
+  const used = new Set();
+
+  host.replaceChildren();
+  for (const grp of groups) {
+    const items = all.filter((g) => grp.test(g) && !used.has(g.source))
+      .sort((a, b) => a.source.localeCompare(b.source));
+    items.forEach((g) => used.add(g.source));
+    if (!items.length) continue;
+
+    const ol = el("ol", { class: "src-items" });
+    for (const g of items) {
+      const what = g.labels.slice(0, 2).join("; ") + (g.labels.length > 2 ? `; +${g.labels.length - 2} more` : "");
+      const nameLink = el("a", { class: "src-name", href: g.url, rel: "noopener", target: "_blank", text: g.source });
+      const tag = el("span", { class: g.live ? "src-tag live" : "src-tag", text: g.live ? "live" : "snapshot" });
+      const when = g.retrieved ? ` ${fmtDate(g.retrieved)}` : "";
+      const meta = el("div", { class: "src-meta",
+        text: g.retrieved
+          ? `${g.live ? "Re-fetched live · last verified" : "Retrieved"}${when}`
+          : (g.live ? "Re-fetched live in your browser" : "Build-time snapshot") });
+      const body = el("div", {}, [
+        el("div", {}, [nameLink, tag]),
+        el("div", { class: "src-what", text: what }),
+        meta,
+      ]);
+      ol.append(el("li", {}, [body]));
+    }
+    host.append(el("div", { class: "src-group" }, [
+      el("p", { class: "src-group-h", text: grp.title }),
+      ol,
+    ]));
+  }
+}
+
+/* ============================================================
  * Boot: load snapshots (the floor), then build every module.
  * ========================================================== */
 async function boot() {
+  // Citations render independently of the module data so the Sources
+  // section always populates, even if a module dataset fails to load.
+  buildSources();
+
   const files = ["market_size", "x402_adoption", "ai_agent_tokens", "bittensor"];
   let data = {}, models;
   try {
