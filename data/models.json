@@ -78,6 +78,19 @@
         "base_year": { "default": 2025 }
       },
       "output": "Narrated 2030 outcome ('Under your assumptions the agent economy is ~$X B'). effective_cagr is clamped to [0.26, 0.55] to stay near the real evidence envelope."
+    },
+    {
+      "id": "token_traction",
+      "module": "Token-vs-traction explorer",
+      "label": "modeled",
+      "formula": "rank_by(metric) where metric ∈ { market_cap_usd, npm_downloads_month, github_stars }; implied_value = market_cap_usd / max(traction_metric, 1)",
+      "inputs": {
+        "rank_metric": { "default": "market_cap_usd", "options": ["market_cap_usd", "npm_downloads_month", "github_stars"], "note": "Lens the reader ranks rows by. market_cap_usd = live CoinGecko→snapshot; npm_downloads_month = live npm→snapshot traction; github_stars = GitHub stars lens." },
+        "hype_discount": { "default": 0.0, "min": 0.0, "max": 1.0, "step": 0.05, "note": "Reader haircut applied to token cap (effective_cap = market_cap_usd * (1 - hype_discount)) to test 'what if the market re-prices to fundamentals'." }
+      },
+      "data_refs": ["ai_agent_tokens.json", "x402_adoption.json", "bittensor.json"],
+      "real_anchor": { "note": "Caps from ai_agent_tokens.json (CoinGecko, tier:live) and bittensor.json#tao_token; traction from x402_adoption.json npm_downloads_last_month + github_repos stars. No values invented — a row with a missing metric is shown as 'n/a', never zero-filled." },
+      "output": "Re-ranked token list under the chosen lens; implied_value surfaces cap↔traction decoupling (high cap / low traction = overvalued on fundamentals, e.g. elizaOS). hype_discount re-prices caps live and re-orders rows (animated)."
     }
   ]
 }
