@@ -1,0 +1,36 @@
+{
+  "_meta": {
+    "retrieved": "2026-06-30T15:53:54Z",
+    "source": "raw.githubusercontent.com/ethereum/ERCs",
+    "tier": "live",
+    "cors": "*"
+  },
+  "standards": [
+    {
+      "id": "ERC-8004",
+      "title": "Trustless Agents",
+      "status": "Draft",
+      "type": "Standards Track",
+      "created": "2025-08-13",
+      "url": "https://raw.githubusercontent.com/ethereum/ERCs/master/ERCS/erc-8004.md"
+    },
+    {
+      "id": "ERC-8001",
+      "title": "Agent Coordination Framework",
+      "status": "Final",
+      "type": "Standards Track",
+      "created": "2025-08-02",
+      "url": "https://raw.githubusercontent.com/ethereum/ERCs/master/ERCS/erc-8001.md",
+      "note": "Correction: ERC-8001 is Final (further along than ERC-8004 Draft)."
+    },
+    {
+      "id": "x402",
+      "title": "HTTP 402 payments protocol",
+      "status": "Live / open-source",
+      "created": "2025-05",
+      "repo": "x402-foundation/x402",
+      "stars": 6217,
+      "url": "https://github.com/x402-foundation/x402"
+    }
+  ]
+}

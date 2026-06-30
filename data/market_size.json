@@ -1,0 +1,119 @@
+{
+  "_meta": {
+    "retrieved": "2026-06-30",
+    "tier": "snapshot",
+    "method": "Research-firm report pages, server-rendered HTML (scrape build-time). Market.us & Grand View 403 to bots \u2192 press-release mirrors. Verified by PRO-18 recon fan-out 2026-06-30.",
+    "guidance": "Show the SPREAD (26.0%\u201349.6% CAGR across 9 firms), never a single cherry-picked number. 'AI Agents' and 'Agentic AI' report families kept distinct."
+  },
+  "firms": [
+    {
+      "firm": "Fortune Business Insights",
+      "report": "AI Agents",
+      "updated": "2026-06-15",
+      "base_year": 2025,
+      "base_usd_b": 8.03,
+      "forecast_year": 2034,
+      "forecast_usd_b": 251.38,
+      "cagr_pct": 46.61,
+      "url": "https://www.fortunebusinessinsights.com/ai-agents-market-109314"
+    },
+    {
+      "firm": "Emergen Research",
+      "report": "Agentic AI",
+      "updated": "2026-06-08",
+      "base_year": 2025,
+      "base_usd_b": 5.2,
+      "forecast_year": 2035,
+      "forecast_usd_b": 52.4,
+      "cagr_pct": 26.0,
+      "flag": "outlier-low",
+      "url": "https://www.emergenresearch.com/industry-report/agentic-ai-market"
+    },
+    {
+      "firm": "Roots Analysis",
+      "report": "AI Agents",
+      "updated": "2026-06",
+      "base_year": 2026,
+      "base_usd_b": 15.0,
+      "forecast_year": 2035,
+      "forecast_usd_b": 221.0,
+      "cagr_pct": 34.64,
+      "url": "https://www.rootsanalysis.com/ai-agents-market"
+    },
+    {
+      "firm": "Precedence Research",
+      "report": "AI Agents",
+      "updated": "2026-05-12",
+      "base_year": 2025,
+      "base_usd_b": 7.92,
+      "forecast_year": 2035,
+      "forecast_usd_b": 294.66,
+      "cagr_pct": 43.57,
+      "url": "https://www.precedenceresearch.com/ai-agents-market"
+    },
+    {
+      "firm": "Mordor Intelligence",
+      "report": "Agentic AI",
+      "updated": "2026-01-15",
+      "base_year": 2025,
+      "base_usd_b": 6.96,
+      "forecast_year": 2031,
+      "forecast_usd_b": 57.42,
+      "cagr_pct": 42.14,
+      "url": "https://www.mordorintelligence.com/industry-reports/agentic-ai-market"
+    },
+    {
+      "firm": "Market.us",
+      "report": "Agentic AI",
+      "updated": "2026-01",
+      "base_year": 2024,
+      "base_usd_b": 5.2,
+      "forecast_year": 2034,
+      "forecast_usd_b": 196.6,
+      "cagr_pct": 43.8,
+      "note": "The old doc's headline number \u2014 still valid, now one of ~9.",
+      "url": "https://market.us/report/agentic-ai-market/"
+    },
+    {
+      "firm": "Grand View Research",
+      "report": "AI Agents",
+      "updated": "2026 (2026\u20132033)",
+      "base_year": 2025,
+      "base_usd_b": 7.63,
+      "forecast_year": 2033,
+      "forecast_usd_b": 182.97,
+      "cagr_pct": 49.6,
+      "flag": "outlier-high",
+      "url": "https://www.grandviewresearch.com/industry-analysis/ai-agents-market-report"
+    },
+    {
+      "firm": "Grand View Research",
+      "report": "Agentic Commerce",
+      "updated": "2026 (2026\u20132033)",
+      "base_year": 2025,
+      "base_usd_b": 5.7,
+      "forecast_year": 2033,
+      "forecast_usd_b": 65.5,
+      "cagr_pct": 35.7,
+      "note": "Closest mainstream proxy for the AI-agents-transacting thesis.",
+      "url": "https://www.grandviewresearch.com/industry-analysis/agentic-commerce-market-report"
+    },
+    {
+      "firm": "MarketsandMarkets",
+      "report": "AI Agents",
+      "updated": "2025-04",
+      "base_year": 2024,
+      "base_usd_b": 5.26,
+      "forecast_year": 2030,
+      "forecast_usd_b": 52.62,
+      "cagr_pct": 46.3,
+      "url": "https://www.marketsandmarkets.com/Market-Reports/ai-agents-market-15761548.html"
+    }
+  ],
+  "cagr_spread_pct": {
+    "min": 26.0,
+    "max": 49.6,
+    "n_firms": 9
+  },
+  "note_crypto": "No top-tier firm has a dedicated 'AI-agent crypto' report; that angle is built from on-chain (CoinGecko/DefiLlama/Dune) + qualitative sources, clearly labelled."
+}

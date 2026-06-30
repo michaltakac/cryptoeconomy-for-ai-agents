@@ -1,0 +1,317 @@
+{
+  "_meta": {
+    "retrieved": "2026-06-30T15:58:34.843Z",
+    "source": "CoinGecko API v3",
+    "tier": "live",
+    "cors": "*",
+    "endpoint": "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&category=ai-agents"
+  },
+  "category_totals": {
+    "ai-agents": {
+      "id": "ai-agents",
+      "name": "AI Agents",
+      "market_cap_usd": 2795027591,
+      "volume_24h_usd": 270833934,
+      "top_3_coins_id": [
+        "venice-token",
+        "fetch-ai",
+        "virtual-protocol"
+      ]
+    },
+    "ai-agent-launchpad": {
+      "id": "ai-agent-launchpad",
+      "name": "AI Agent Launchpad",
+      "market_cap_usd": 1107753435,
+      "volume_24h_usd": 130125020,
+      "top_3_coins_id": [
+        "fetch-ai",
+        "virtual-protocol",
+        "stp-network"
+      ]
+    },
+    "ai-framework": {
+      "id": "ai-framework",
+      "name": "AI Framework",
+      "market_cap_usd": 1535590677,
+      "volume_24h_usd": 210846095,
+      "top_3_coins_id": [
+        "virtual-protocol",
+        "unibase",
+        "eigenlayer"
+      ]
+    },
+    "artificial-intelligence": {
+      "id": "artificial-intelligence",
+      "name": "Artificial Intelligence (AI)",
+      "market_cap_usd": 20454381694,
+      "volume_24h_usd": 1763085148,
+      "top_3_coins_id": [
+        "chainlink",
+        "near",
+        "bittensor"
+      ]
+    }
+  },
+  "tokens": [
+    {
+      "id": "venice-token",
+      "symbol": "vvv",
+      "name": "Venice Token",
+      "current_price": 12.67,
+      "market_cap": 596739812,
+      "market_cap_rank": 94,
+      "total_volume": 27420338,
+      "price_change_percentage_24h": -1.65123,
+      "circulating_supply": 47085418.56263088,
+      "ath": 22.58,
+      "ath_change_percentage": -44.45039
+    },
+    {
+      "id": "fetch-ai",
+      "symbol": "fet",
+      "name": "Artificial Superintelligence Alliance",
+      "current_price": 0.171688,
+      "market_cap": 387307594,
+      "market_cap_rank": 117,
+      "total_volume": 53422326,
+      "price_change_percentage_24h": -2.24605,
+      "circulating_supply": 2255854157.219293,
+      "ath": 3.45,
+      "ath_change_percentage": -95.03903
+    },
+    {
+      "id": "virtual-protocol",
+      "symbol": "virtual",
+      "name": "Virtuals Protocol",
+      "current_price": 0.524653,
+      "market_cap": 344756938,
+      "market_cap_rank": 123,
+      "total_volume": 40109290,
+      "price_change_percentage_24h": -2.71351,
+      "circulating_supply": 657085334.6451555,
+      "ath": 5.07,
+      "ath_change_percentage": -89.67754
+    },
+    {
+      "id": "kite-2",
+      "symbol": "kite",
+      "name": "Kite",
+      "current_price": 0.11152,
+      "market_cap": 260368612,
+      "market_cap_rank": 139,
+      "total_volume": 31571862,
+      "price_change_percentage_24h": -5.81919,
+      "circulating_supply": 2332225913,
+      "ath": 0.319747,
+      "ath_change_percentage": -64.87186
+    },
+    {
+      "id": "cortex-2",
+      "symbol": "cx",
+      "name": "Cortex",
+      "current_price": 0.114576,
+      "market_cap": 168671840,
+      "market_cap_rank": 185,
+      "total_volume": 1547425,
+      "price_change_percentage_24h": 45.46927,
+      "circulating_supply": 1473269330.43,
+      "ath": 0.132376,
+      "ath_change_percentage": -14.49036
+    },
+    {
+      "id": "origintrail",
+      "symbol": "trac",
+      "name": "OriginTrail",
+      "current_price": 0.259999,
+      "market_cap": 116121191,
+      "market_cap_rank": 234,
+      "total_volume": 3372451,
+      "price_change_percentage_24h": -2.78448,
+      "circulating_supply": 447274118,
+      "ath": 3.5,
+      "ath_change_percentage": -92.76016
+    },
+    {
+      "id": "stp-network",
+      "symbol": "awe",
+      "name": "AWE Network",
+      "current_price": 0.051181,
+      "market_cap": 99415306,
+      "market_cap_rank": 267,
+      "total_volume": 2419714,
+      "price_change_percentage_24h": -1.98589,
+      "circulating_supply": 1942420283.0270672,
+      "ath": 0.270085,
+      "ath_change_percentage": -80.91115
+    },
+    {
+      "id": "ai-rig-complex",
+      "symbol": "arc",
+      "name": "AI Rig Complex",
+      "current_price": 0.083803,
+      "market_cap": 83769052,
+      "market_cap_rank": 296,
+      "total_volume": 4623506,
+      "price_change_percentage_24h": 0.25548,
+      "circulating_supply": 999982885.235165,
+      "ath": 0.623197,
+      "ath_change_percentage": -86.64276
+    },
+    {
+      "id": "concordium",
+      "symbol": "ccd",
+      "name": "Concordium",
+      "current_price": 0.00372902,
+      "market_cap": 47086933,
+      "market_cap_rank": 454,
+      "total_volume": 127434,
+      "price_change_percentage_24h": -4.14103,
+      "circulating_supply": 12627169458.84091,
+      "ath": 0.149407,
+      "ath_change_percentage": -97.50279
+    },
+    {
+      "id": "holoworld",
+      "symbol": "holo",
+      "name": "Holoworld",
+      "current_price": 0.064831,
+      "market_cap": 47085604,
+      "market_cap_rank": 455,
+      "total_volume": 3199171,
+      "price_change_percentage_24h": -6.06789,
+      "circulating_supply": 726298493.999999,
+      "ath": 0.775714,
+      "ath_change_percentage": -91.68034
+    },
+    {
+      "id": "bankercoin-2",
+      "symbol": "bnkr",
+      "name": "BankrCoin",
+      "current_price": 0.00037695,
+      "market_cap": 37696874,
+      "market_cap_rank": 532,
+      "total_volume": 1576507,
+      "price_change_percentage_24h": -1.26878,
+      "circulating_supply": 99999999999.99998,
+      "ath": 0.00120094,
+      "ath_change_percentage": -68.7125
+    },
+    {
+      "id": "v-i-t-r-i-o-l-network",
+      "symbol": "vit",
+      "name": "V.I.T.R.I.O.L. Network",
+      "current_price": 0.076932,
+      "market_cap": 34015042,
+      "market_cap_rank": 569,
+      "total_volume": 5061.55,
+      "price_change_percentage_24h": 0.00104,
+      "circulating_supply": 442146542.006,
+      "ath": 0.09993,
+      "ath_change_percentage": -23.01453
+    },
+    {
+      "id": "iotex",
+      "symbol": "iotx",
+      "name": "IoTeX",
+      "current_price": 0.002684,
+      "market_cap": 25340703,
+      "market_cap_rank": 694,
+      "total_volume": 1901832,
+      "price_change_percentage_24h": -3.61753,
+      "circulating_supply": 9441368550,
+      "ath": 0.255593,
+      "ath_change_percentage": -98.95405
+    },
+    {
+      "id": "openserv",
+      "symbol": "serv",
+      "name": "OpenServ",
+      "current_price": 0.03227297,
+      "market_cap": 24850674,
+      "market_cap_rank": 706,
+      "total_volume": 760524,
+      "price_change_percentage_24h": -5.38489,
+      "circulating_supply": 770000000,
+      "ath": 0.139003,
+      "ath_change_percentage": -76.80004
+    },
+    {
+      "id": "pha",
+      "symbol": "pha",
+      "name": "PHALA",
+      "current_price": 0.02723413,
+      "market_cap": 22890186,
+      "market_cap_rank": 738,
+      "total_volume": 11341729,
+      "price_change_percentage_24h": -8.08185,
+      "circulating_supply": 840496260.4928192,
+      "ath": 1.39,
+      "ath_change_percentage": -98.05413
+    },
+    {
+      "id": "freysa-ai",
+      "symbol": "fai",
+      "name": "Freysa AI",
+      "current_price": 0.00262218,
+      "market_cap": 21480301,
+      "market_cap_rank": 764,
+      "total_volume": 932404,
+      "price_change_percentage_24h": -1.38153,
+      "circulating_supply": 8189700000,
+      "ath": 0.080047,
+      "ath_change_percentage": -96.72773
+    },
+    {
+      "id": "olaxbt",
+      "symbol": "aio",
+      "name": "OlaXBT",
+      "current_price": 0.09215,
+      "market_cap": 21230607,
+      "market_cap_rank": 771,
+      "total_volume": 954046,
+      "price_change_percentage_24h": -0.80538,
+      "circulating_supply": 230250000,
+      "ath": 0.231125,
+      "ath_change_percentage": -60.20159
+    },
+    {
+      "id": "iexec-rlc",
+      "symbol": "rlc",
+      "name": "iExec RLC",
+      "current_price": 0.283718,
+      "market_cap": 20536198,
+      "market_cap_rank": 786,
+      "total_volume": 2288580,
+      "price_change_percentage_24h": -2.80712,
+      "circulating_supply": 72382548.06525737,
+      "ath": 15.51,
+      "ath_change_percentage": -98.17707
+    },
+    {
+      "id": "everipedia",
+      "symbol": "iq",
+      "name": "IQ",
+      "current_price": 0.0007293,
+      "market_cap": 19203897,
+      "market_cap_rank": 818,
+      "total_volume": 587850,
+      "price_change_percentage_24h": -0.99179,
+      "circulating_supply": 26331959476.929,
+      "ath": 0.072382,
+      "ath_change_percentage": -98.98697
+    },
+    {
+      "id": "aixbt",
+      "symbol": "aixbt",
+      "name": "aixbt",
+      "current_price": 0.01831372,
+      "market_cap": 18217140,
+      "market_cap_rank": 845,
+      "total_volume": 4855965,
+      "price_change_percentage_24h": -2.34251,
+      "circulating_supply": 994658423.1010208,
+      "ath": 0.942578,
+      "ath_change_percentage": -98.0666
+    }
+  ]
+}

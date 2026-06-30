@@ -1,0 +1,166 @@
+{
+  "_meta": {
+    "title": "Locked data-source catalog — Crypto Economy for AI Agents",
+    "workstream": "PRO-19 / PRO-18 §4 + Appendix A",
+    "locked_on": "2026-06-30",
+    "rule": "No figure ships without a matching entry in provenance.json (value + source URL + retrieval date).",
+    "tier_legend": {
+      "live": "Client-fetchable from the static GitHub Pages site (CORS access-control-allow-origin: *). Snapshot in /data is the fallback on 429/CORS/HTTP error.",
+      "snapshot": "No browser CORS, keyed, rate-limited, or bot-blocked. MUST be fetched build-time and committed to /data; the site reads the committed JSON only."
+    }
+  },
+  "sources": [
+    {
+      "id": "coingecko",
+      "name": "CoinGecko API v3",
+      "tier": "live",
+      "cors": "*",
+      "endpoints": {
+        "categories": "https://api.coingecko.com/api/v3/coins/categories?order=market_cap_desc",
+        "markets": "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&category=ai-agents&order=market_cap_desc&per_page=20"
+      },
+      "categories": ["ai-agents", "ai-agent-launchpad", "ai-framework", "artificial-intelligence"],
+      "free_tier": "Keyless works but throttles to HTTP 429; Demo key 30/min, 10k/mo.",
+      "refresh_cadence": "live (cache 5–15 min); rebuild snapshot daily",
+      "snapshot_file": "ai_agent_tokens.json",
+      "feeds": ["Agent-token momentum explorer", "Segment/market anchors", "TAO/FET/VIRTUAL prices"],
+      "last_verified": "2026-06-30 (HTTP 200)"
+    },
+    {
+      "id": "defillama",
+      "name": "DefiLlama API",
+      "tier": "live",
+      "cors": "*",
+      "endpoints": {
+        "protocols": "https://api.llama.fi/protocols",
+        "chains": "https://api.llama.fi/v2/chains",
+        "stablecoins": "https://stablecoins.llama.fi/stablecoins?includePrices=true",
+        "raises_PAID": "https://api.llama.fi/raises"
+      },
+      "free_tier": "Free, CORS *. WARNING: /raises returns HTTP 402 (paid) — confirmed 2026-06-30. Use funding.json snapshot sources instead.",
+      "refresh_cadence": "live; rebuild snapshot daily",
+      "snapshot_file": "onchain.json",
+      "feeds": ["Stablecoin settlement context", "On-chain TVL"],
+      "last_verified": "2026-06-30 (protocols 200, /raises 402)"
+    },
+    {
+      "id": "github",
+      "name": "GitHub REST API",
+      "tier": "live",
+      "cors": "*",
+      "endpoints": { "repo": "https://api.github.com/repos/{owner}/{repo}" },
+      "free_tier": "60 req/hr unauthenticated.",
+      "refresh_cadence": "live; rebuild snapshot daily",
+      "snapshot_file": "x402_adoption.json",
+      "corrections": "Canonical x402 repo is x402-foundation/x402 (6,217★, not a fork). coinbase/x402 is now a fork (96★).",
+      "feeds": ["Dev-momentum / standards timeline"],
+      "last_verified": "2026-06-30 (HTTP 200)"
+    },
+    {
+      "id": "npm",
+      "name": "npm downloads API",
+      "tier": "live",
+      "cors": "*",
+      "endpoints": { "last_month": "https://api.npmjs.org/downloads/point/last-month/{pkg}" },
+      "free_tier": "Free, CORS *.",
+      "refresh_cadence": "live; rebuild snapshot daily",
+      "snapshot_file": "x402_adoption.json",
+      "feeds": ["x402 adoption simulator (SDK adoption proxy)"],
+      "last_verified": "2026-06-30 (HTTP 200)"
+    },
+    {
+      "id": "raw-erc",
+      "name": "raw.githubusercontent.com (ethereum/ERCs)",
+      "tier": "live",
+      "cors": "*",
+      "endpoints": {
+        "erc8004": "https://raw.githubusercontent.com/ethereum/ERCs/master/ERCS/erc-8004.md",
+        "erc8001": "https://raw.githubusercontent.com/ethereum/ERCs/master/ERCS/erc-8001.md"
+      },
+      "free_tier": "Free, CORS *.",
+      "refresh_cadence": "live; rebuild snapshot weekly",
+      "snapshot_file": "standards.json",
+      "corrections": "ERC-8004 = Draft (2025-08-13); ERC-8001 = Final (2025-08-02).",
+      "feeds": ["Standards timeline"],
+      "last_verified": "2026-06-30 (HTTP 200)"
+    },
+    {
+      "id": "polymarket",
+      "name": "Polymarket Gamma API",
+      "tier": "live",
+      "cors": "*",
+      "endpoints": { "markets": "https://gamma-api.polymarket.com/markets?closed=false" },
+      "free_tier": "Free, no auth, CORS *.",
+      "refresh_cadence": "live",
+      "snapshot_file": "predictions.json",
+      "caveat": "AI-agent markets are low-volume; pull via the ai-agent tag, not the generic endpoint. '~100 markets' claim unverified by generic pull on 2026-06-30.",
+      "feeds": ["Prediction-market sentiment"],
+      "last_verified": "2026-06-30 (HTTP 200)"
+    },
+    {
+      "id": "dune",
+      "name": "Dune Analytics (x402 on-chain volume)",
+      "tier": "snapshot",
+      "cors": "none",
+      "endpoints": {
+        "queries": ["6240463 (volume by facilitator & chain)", "6060125 (tx/day)"],
+        "dashboards": ["dune.com/hashed_official/x402-analytics", "dune.com/thechriscen/x402-payment-analytics"]
+      },
+      "free_tier": "Keyed API, free 15–40 rpm.",
+      "refresh_cadence": "snapshot daily/weekly (requires Dune key)",
+      "snapshot_file": "x402_adoption.json (field: x402_onchain_volume)",
+      "status": "pending_key — on-chain $ volume NOT invented; requires a Dune API key to stamp.",
+      "feeds": ["x402 adoption simulator (real on-chain volume anchor)"]
+    },
+    {
+      "id": "x402scan",
+      "name": "x402scan.com",
+      "tier": "snapshot",
+      "cors": "none",
+      "note": "Canonical x402 explorer; no clean free API (probed /api/* → 404/307 on 2026-06-30). Scrape or self-host repo Merit-Systems/x402scan.",
+      "refresh_cadence": "snapshot"
+    },
+    {
+      "id": "taostats",
+      "name": "taostats (Bittensor)",
+      "tier": "snapshot",
+      "cors": "none",
+      "endpoints": { "api": "https://api.taostats.io" },
+      "free_tier": "Keyed, 5/min (HTTP 401 without key, confirmed 2026-06-30).",
+      "snapshot_file": "bittensor.json",
+      "note": "TAO token price available free via CoinGecko (live); subnet detail needs taostats key.",
+      "refresh_cadence": "snapshot"
+    },
+    {
+      "id": "kalshi",
+      "name": "Kalshi prediction markets",
+      "tier": "snapshot",
+      "cors": "none",
+      "endpoints": { "markets": "https://api.elections.kalshi.com/trade-api/v2/markets" },
+      "note": "Server read returns 200 but no browser CORS (confirmed 2026-06-30) → must snapshot server-side.",
+      "snapshot_file": "predictions.json",
+      "refresh_cadence": "snapshot"
+    },
+    {
+      "id": "cryptorank",
+      "name": "CryptoRank Sandbox API (funding)",
+      "tier": "snapshot",
+      "cors": "none",
+      "endpoints": { "funding": "https://api.cryptorank.io/v2/funding-rounds" },
+      "free_tier": "Free key, 10k credits/mo.",
+      "snapshot_file": "funding.json",
+      "status": "pending_key",
+      "refresh_cadence": "snapshot"
+    },
+    {
+      "id": "market-research-firms",
+      "name": "Research-firm market-size pages",
+      "tier": "snapshot",
+      "cors": "none",
+      "firms": ["Fortune Business Insights", "Emergen", "Roots Analysis", "Precedence", "Mordor", "Market.us", "Grand View", "MarketsandMarkets"],
+      "note": "Server-rendered HTML, scrape build-time. Market.us & Grand View return 403 to bots → browser UA / press-release mirrors. Show the 26.0%–49.6% CAGR spread, never one number.",
+      "snapshot_file": "market_size.json",
+      "refresh_cadence": "snapshot monthly"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "_meta": {
+    "retrieved": "2026-06-30T15:58:34.843Z",
+    "source": "DefiLlama API",
+    "tier": "live",
+    "cors": "*"
+  },
+  "stablecoins": {
+    "endpoint": "https://stablecoins.llama.fi/stablecoins?includePrices=true",
+    "usdc_circulating_usd": 73767100812,
+    "usdt_circulating_usd": 184664836406,
+    "total_stablecoin_mcap_usd": 311415972254
+  },
+  "defillama_protocols_tracked": 7750
+}

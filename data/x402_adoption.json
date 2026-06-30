@@ -1,0 +1,58 @@
+{
+  "_meta": {
+    "retrieved": "2026-06-30T15:58:34.843Z",
+    "note": "x402 on-chain $ volume lives on Dune (keyed) — see x402_onchain_volume; not invented here."
+  },
+  "npm_downloads_last_month": [
+    {
+      "package": "x402",
+      "downloads": 1076390,
+      "window": "2026-05-30..2026-06-28",
+      "tier": "live",
+      "cors": "*"
+    },
+    {
+      "package": "@coinbase/x402",
+      "downloads": 297471,
+      "window": "2026-05-30..2026-06-28",
+      "tier": "live",
+      "cors": "*"
+    },
+    {
+      "package": "@elizaos/core",
+      "downloads": 82593,
+      "window": "2026-05-30..2026-06-28",
+      "tier": "live",
+      "cors": "*"
+    }
+  ],
+  "github_repos": [
+    {
+      "repo": "x402-foundation/x402",
+      "stars": 6217,
+      "forks": 1769,
+      "pushed_at": "2026-06-30T08:41:27Z",
+      "is_fork": false
+    },
+    {
+      "repo": "coinbase/x402",
+      "stars": 96,
+      "forks": 129,
+      "pushed_at": "2026-06-25T19:49:26Z",
+      "is_fork": true
+    },
+    {
+      "repo": "elizaOS/eliza",
+      "stars": 18657,
+      "forks": 5573,
+      "pushed_at": "2026-06-30T13:23:30Z",
+      "is_fork": false
+    }
+  ],
+  "x402_onchain_volume": {
+    "value": null,
+    "status": "snapshot_pending_key",
+    "tier": "snapshot",
+    "note": "Dune queries 6240463 / 6060125; ~95% on Base. Needs a Dune API key."
+  }
+}

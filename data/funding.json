@@ -1,0 +1,36 @@
+{
+  "_meta": {
+    "retrieved": "2026-06-30",
+    "tier": "snapshot",
+    "note": "DefiLlama /raises = HTTP 402 (paid) confirmed 2026-06-30. Free alternatives below. Figures requiring a keyed pull are marked status:pending so nothing is invented."
+  },
+  "sources": [
+    {
+      "name": "CryptoRank Sandbox API",
+      "access": "free key, 10k credits/mo",
+      "endpoint": "https://api.cryptorank.io/v2/funding-rounds",
+      "tier": "snapshot",
+      "status": "pending_key"
+    },
+    {
+      "name": "crypto-fundraising.info",
+      "access": "free scrape",
+      "url": "https://crypto-fundraising.info/",
+      "tier": "snapshot"
+    },
+    {
+      "name": "CB Insights State of Venture / AI 2025",
+      "access": "email-gated PDF, topline only",
+      "tier": "snapshot"
+    }
+  ],
+  "verified_rounds": [
+    {
+      "company": "Kite AI",
+      "round": "Series A lead: PayPal Ventures",
+      "note": "Agent-native L1; verified via PayPal Ventures release.",
+      "url": "https://paypal.vc/news/news-details/2025/The-state-of-agentic-commerce-and-why-we-invested-in-Kite-AI-2025-LroAXfplpA/default.aspx",
+      "status": "qualitative"
+    }
+  ]
+}

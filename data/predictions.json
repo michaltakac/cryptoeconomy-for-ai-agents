@@ -1,0 +1,18 @@
+{
+  "_meta": {
+    "retrieved": "2026-06-30T15:53:54Z"
+  },
+  "polymarket": {
+    "tier": "live",
+    "cors": "*",
+    "endpoint": "https://gamma-api.polymarket.com/markets?closed=false",
+    "canonical_tag": "https://polymarket.com/predictions/ai-agent",
+    "verified_note": "AI-agent markets exist but are low-volume; a generic top-500-by-volume scan on 2026-06-30 surfaced 1 ('Will Moonshot have the best AI Agent at end of June 2026?', vol\u2248996). The recon-cited '~100 AI Agent markets' must be pulled via the ai-agent tag, not the generic endpoint \u2014 recorded as unverified-by-this-pull, NOT asserted."
+  },
+  "kalshi": {
+    "tier": "snapshot",
+    "cors": "none (server read 200, no browser CORS \u2014 confirmed 2026-06-30)",
+    "endpoint": "https://api.elections.kalshi.com/trade-api/v2/markets",
+    "note": "Must be snapshotted server-side; cannot fetch from the static page."
+  }
+}

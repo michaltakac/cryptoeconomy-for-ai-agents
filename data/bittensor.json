@@ -1,0 +1,18 @@
+{
+  "_meta": {
+    "retrieved": "2026-06-30T15:53:54Z"
+  },
+  "tao_token": {
+    "tier": "live",
+    "source": "CoinGecko",
+    "price_usd": 202.77,
+    "market_cap_usd": 1946350563,
+    "endpoint": "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bittensor"
+  },
+  "subnet_detail": {
+    "tier": "snapshot",
+    "source": "taostats",
+    "endpoint": "https://api.taostats.io",
+    "note": "Keyed (HTTP 401 without key, 5/min free). Subnet-level data pending a taostats key \u2014 not invented."
+  }
+}

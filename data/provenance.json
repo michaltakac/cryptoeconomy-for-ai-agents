@@ -1,0 +1,134 @@
+{
+  "_meta": {
+    "title": "Provenance ledger — every figure → {value, source, url, retrieval date, method}",
+    "rule": "No number ships in the research doc (#2) or site (#6) without an entry here. status: verified (re-fetched 2026-06-30) | snapshot_pending (needs key/scrape, NOT invented) | legacy_unverified (from Sept-2025 doc, must be re-sourced or dropped) | modeled (derived; see models.json).",
+    "retrieval_date": "2026-06-30",
+    "retrieved_at_utc": "2026-06-30T15:53:54Z"
+  },
+  "figures": [
+    {
+      "id": "cg-ai-agents-mcap", "label": "AI-agents token category market cap", "value": 2785414786, "unit": "USD",
+      "status": "verified", "source": "CoinGecko", "method": "live API /coins/categories",
+      "url": "https://api.coingecko.com/api/v3/coins/categories", "retrieved": "2026-06-30", "tier": "live"
+    },
+    {
+      "id": "cg-ai-agents-vol24h", "label": "AI-agents category 24h volume", "value": 270603297, "unit": "USD",
+      "status": "verified", "source": "CoinGecko", "url": "https://api.coingecko.com/api/v3/coins/categories", "retrieved": "2026-06-30", "tier": "live"
+    },
+    {
+      "id": "cg-artificial-intelligence-mcap", "label": "Artificial Intelligence category market cap", "value": 20400603978, "unit": "USD",
+      "status": "verified", "source": "CoinGecko", "url": "https://api.coingecko.com/api/v3/coins/categories", "retrieved": "2026-06-30", "tier": "live"
+    },
+    {
+      "id": "cg-top-token-venice", "label": "Top ai-agents token (Venice/VVV) market cap", "value": 595279907, "unit": "USD",
+      "status": "verified", "source": "CoinGecko", "url": "https://api.coingecko.com/api/v3/coins/markets?category=ai-agents", "retrieved": "2026-06-30", "tier": "live"
+    },
+    {
+      "id": "tao-mcap", "label": "Bittensor (TAO) market cap", "value": 1946350563, "unit": "USD",
+      "status": "verified", "source": "CoinGecko", "url": "https://api.coingecko.com/api/v3/coins/markets?ids=bittensor", "retrieved": "2026-06-30", "tier": "live"
+    },
+    {
+      "id": "tao-price", "label": "Bittensor (TAO) price", "value": 202.77, "unit": "USD",
+      "status": "verified", "source": "CoinGecko", "url": "https://api.coingecko.com/api/v3/coins/markets?ids=bittensor", "retrieved": "2026-06-30", "tier": "live"
+    },
+    {
+      "id": "fet-mcap", "label": "Artificial Superintelligence Alliance (FET) market cap", "value": 387558316, "unit": "USD",
+      "status": "verified", "source": "CoinGecko", "url": "https://api.coingecko.com/api/v3/coins/markets?ids=fetch-ai", "retrieved": "2026-06-30", "tier": "live"
+    },
+    {
+      "id": "virtual-mcap", "label": "Virtuals Protocol (VIRTUAL) market cap", "value": 345296067, "unit": "USD",
+      "status": "verified", "source": "CoinGecko", "url": "https://api.coingecko.com/api/v3/coins/markets?ids=virtual-protocol", "retrieved": "2026-06-30", "tier": "live"
+    },
+    {
+      "id": "usdc-circulating", "label": "USDC circulating supply", "value": 73767100812, "unit": "USD",
+      "status": "verified", "source": "DefiLlama", "url": "https://stablecoins.llama.fi/stablecoins?includePrices=true", "retrieved": "2026-06-30", "tier": "live"
+    },
+    {
+      "id": "stablecoin-total", "label": "Total stablecoin market cap", "value": 311415972254, "unit": "USD",
+      "status": "verified", "source": "DefiLlama", "url": "https://stablecoins.llama.fi/stablecoins?includePrices=true", "retrieved": "2026-06-30", "tier": "live"
+    },
+    {
+      "id": "defillama-protocols", "label": "DeFi protocols tracked", "value": 7750, "unit": "count",
+      "status": "verified", "source": "DefiLlama", "url": "https://api.llama.fi/protocols", "retrieved": "2026-06-30", "tier": "live"
+    },
+    {
+      "id": "npm-x402", "label": "npm 'x402' downloads (last month)", "value": 1076390, "unit": "downloads/mo",
+      "status": "verified", "source": "npm", "method": "window 2026-05-30..2026-06-28",
+      "url": "https://api.npmjs.org/downloads/point/last-month/x402", "retrieved": "2026-06-30", "tier": "live"
+    },
+    {
+      "id": "npm-coinbase-x402", "label": "npm '@coinbase/x402' downloads (last month)", "value": 297471, "unit": "downloads/mo",
+      "status": "verified", "source": "npm", "url": "https://api.npmjs.org/downloads/point/last-month/@coinbase/x402", "retrieved": "2026-06-30", "tier": "live"
+    },
+    {
+      "id": "npm-elizaos", "label": "npm '@elizaos/core' downloads (last month)", "value": 82593, "unit": "downloads/mo",
+      "status": "verified", "source": "npm", "url": "https://api.npmjs.org/downloads/point/last-month/@elizaos/core", "retrieved": "2026-06-30", "tier": "live"
+    },
+    {
+      "id": "gh-x402-foundation", "label": "x402-foundation/x402 stars (canonical repo)", "value": 6217, "unit": "stars",
+      "status": "verified", "source": "GitHub", "method": "is_fork=false; forks=1769; pushed 2026-06-30",
+      "url": "https://api.github.com/repos/x402-foundation/x402", "retrieved": "2026-06-30", "tier": "live"
+    },
+    {
+      "id": "gh-coinbase-x402", "label": "coinbase/x402 stars (now a FORK)", "value": 96, "unit": "stars",
+      "status": "verified", "source": "GitHub", "method": "is_fork=true — superseded by x402-foundation/x402",
+      "url": "https://api.github.com/repos/coinbase/x402", "retrieved": "2026-06-30", "tier": "live"
+    },
+    {
+      "id": "gh-eliza", "label": "elizaOS/eliza stars", "value": 18657, "unit": "stars",
+      "status": "verified", "source": "GitHub", "url": "https://api.github.com/repos/elizaOS/eliza", "retrieved": "2026-06-30", "tier": "live"
+    },
+    {
+      "id": "erc-8004-status", "label": "ERC-8004 (Trustless Agents) status", "value": "Draft", "unit": "status",
+      "status": "verified", "source": "ethereum/ERCs raw", "method": "created 2025-08-13",
+      "url": "https://raw.githubusercontent.com/ethereum/ERCs/master/ERCS/erc-8004.md", "retrieved": "2026-06-30", "tier": "live"
+    },
+    {
+      "id": "erc-8001-status", "label": "ERC-8001 (Agent Coordination Framework) status", "value": "Final", "unit": "status",
+      "status": "verified", "source": "ethereum/ERCs raw", "method": "created 2025-08-02; further along than 8004",
+      "url": "https://raw.githubusercontent.com/ethereum/ERCs/master/ERCS/erc-8001.md", "retrieved": "2026-06-30", "tier": "live"
+    },
+
+    { "id": "ms-fortune", "label": "AI Agents market — Fortune Business Insights", "value": {"base_2025": 8.03, "forecast_2034": 251.38, "cagr": 46.61}, "unit": "USD_B / %",
+      "status": "snapshot", "source": "Fortune Business Insights (AI Agents, upd 2026-06-15)", "method": "report page scrape (recon-verified 2026-06-30)",
+      "url": "https://www.fortunebusinessinsights.com/ai-agents-market-109314", "retrieved": "2026-06-30", "tier": "snapshot" },
+    { "id": "ms-emergen", "label": "Agentic AI market — Emergen (outlier-low)", "value": {"base_2025": 5.20, "forecast_2035": 52.40, "cagr": 26.0}, "unit": "USD_B / %",
+      "status": "snapshot", "source": "Emergen Research (Agentic AI, upd 2026-06-08)", "url": "https://www.emergenresearch.com/industry-report/agentic-ai-market", "retrieved": "2026-06-30", "tier": "snapshot" },
+    { "id": "ms-roots", "label": "AI Agents market — Roots Analysis", "value": {"base_2026": 15.0, "forecast_2035": 221.0, "cagr": 34.64}, "unit": "USD_B / %",
+      "status": "snapshot", "source": "Roots Analysis (AI Agents, upd 2026-06)", "url": "https://www.rootsanalysis.com/ai-agents-market", "retrieved": "2026-06-30", "tier": "snapshot" },
+    { "id": "ms-precedence", "label": "AI Agents market — Precedence", "value": {"base_2025": 7.92, "forecast_2035": 294.66, "cagr": 43.57}, "unit": "USD_B / %",
+      "status": "snapshot", "source": "Precedence Research (AI Agents, upd 2026-05-12)", "url": "https://www.precedenceresearch.com/ai-agents-market", "retrieved": "2026-06-30", "tier": "snapshot" },
+    { "id": "ms-mordor", "label": "Agentic AI market — Mordor", "value": {"base_2025": 6.96, "forecast_2031": 57.42, "cagr": 42.14}, "unit": "USD_B / %",
+      "status": "snapshot", "source": "Mordor Intelligence (Agentic AI, upd 2026-01-15)", "url": "https://www.mordorintelligence.com/industry-reports/agentic-ai-market", "retrieved": "2026-06-30", "tier": "snapshot" },
+    { "id": "ms-marketus", "label": "Agentic AI market — Market.us (old-doc headline)", "value": {"base_2024": 5.2, "forecast_2034": 196.6, "cagr": 43.8}, "unit": "USD_B / %",
+      "status": "snapshot", "source": "Market.us (Agentic AI, upd 2026-01)", "method": "This is the old doc's $7B→$196.6B@43.8% figure — still valid, now 1 of ~9.",
+      "url": "https://market.us/report/agentic-ai-market/", "retrieved": "2026-06-30", "tier": "snapshot" },
+    { "id": "ms-grandview-aiagents", "label": "AI Agents market — Grand View (outlier-high)", "value": {"base_2025": 7.63, "forecast_2033": 182.97, "cagr": 49.6}, "unit": "USD_B / %",
+      "status": "snapshot", "source": "Grand View Research (AI Agents, 2026–2033)", "method": "403 to bots → press-release mirror",
+      "url": "https://www.grandviewresearch.com/industry-analysis/ai-agents-market-report", "retrieved": "2026-06-30", "tier": "snapshot" },
+    { "id": "ms-grandview-commerce", "label": "Agentic Commerce market — Grand View (crypto-thesis proxy)", "value": {"base_2025": 5.7, "forecast_2033": 65.5, "cagr": 35.7}, "unit": "USD_B / %",
+      "status": "snapshot", "source": "Grand View Research (Agentic Commerce, 2026–2033)", "url": "https://www.grandviewresearch.com/industry-analysis/agentic-commerce-market-report", "retrieved": "2026-06-30", "tier": "snapshot" },
+    { "id": "ms-mandm", "label": "AI Agents market — MarketsandMarkets", "value": {"base_2024": 5.26, "forecast_2030": 52.62, "cagr": 46.3}, "unit": "USD_B / %",
+      "status": "snapshot", "source": "MarketsandMarkets (AI Agents, upd 2025-04)", "url": "https://www.marketsandmarkets.com/Market-Reports/ai-agents-market-15761548.html", "retrieved": "2026-06-30", "tier": "snapshot" },
+    { "id": "cagr-spread", "label": "CAGR spread across 9 firms", "value": {"min": 26.0, "max": 49.6, "n": 9}, "unit": "%",
+      "status": "snapshot", "source": "Derived from the 9 firm rows above", "method": "Show the spread, never a single number.", "retrieved": "2026-06-30", "tier": "snapshot" },
+    { "id": "fortune-2025-base", "label": "Default model base value", "value": 8.03, "unit": "USD_B",
+      "status": "snapshot", "source": "Fortune Business Insights 2025 base", "url": "https://www.fortunebusinessinsights.com/ai-agents-market-109314", "retrieved": "2026-06-30", "tier": "snapshot" },
+
+    { "id": "x402_onchain_volume", "label": "x402 on-chain payment volume", "value": null, "unit": "USD",
+      "status": "snapshot_pending", "source": "Dune Analytics (keyed)", "method": "queries 6240463 / 6060125; ~95% on Base. NOT estimated — requires Dune API key.",
+      "url": "https://dune.com/hashed_official/x402-analytics", "retrieved": null, "tier": "snapshot" },
+    { "id": "funding-kite", "label": "Kite AI funding (PayPal Ventures lead)", "value": "qualitative", "unit": "round",
+      "status": "snapshot", "source": "PayPal Ventures release", "url": "https://paypal.vc/news/news-details/2025/The-state-of-agentic-commerce-and-why-we-invested-in-Kite-AI-2025-LroAXfplpA/default.aspx", "retrieved": "2026-06-30", "tier": "snapshot" },
+    { "id": "polymarket-ai-markets", "label": "Polymarket live AI-agent markets", "value": "unverified", "unit": "count",
+      "status": "snapshot_pending", "source": "Polymarket Gamma", "method": "Generic top-500-by-volume scan on 2026-06-30 found 1 AI-agent market; recon '~100' must be pulled via ai-agent tag. NOT asserted as 100.",
+      "url": "https://polymarket.com/predictions/ai-agent", "retrieved": "2026-06-30", "tier": "live" },
+
+    { "id": "legacy_segment_split", "label": "2025 segment shares (algo trading 33.7%, call centers 30%, supply chain 25.7%, crypto agents 2.4%, other 8.2%)", "value": {"algorithmic_trading": 0.337, "ai_call_centers": 0.30, "supply_chain": 0.257, "crypto_agents": 0.024, "other": 0.082}, "unit": "share",
+      "status": "legacy_unverified", "source": "Sept-2025 market-research.md (uncited)", "method": "MUST be re-sourced or dropped before publish; used only as a default the reader re-weights.", "retrieved": null, "tier": "snapshot" },
+    { "id": "gartner-adoption-2025", "label": "Enterprise agentic-AI adoption today (<1%)", "value": 0.01, "unit": "share",
+      "status": "legacy_unverified", "source": "Sept-2025 doc (commonly attributed to Gartner)", "method": "Re-source against a primary Gartner release before publish.", "retrieved": null, "tier": "snapshot" },
+    { "id": "gartner-adoption-2028", "label": "Enterprise agentic-AI adoption by 2028 (~33%)", "value": 0.33, "unit": "share",
+      "status": "legacy_unverified", "source": "Sept-2025 doc (Gartner-attributed)", "method": "Re-source before publish.", "retrieved": null, "tier": "snapshot" }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "_meta": {
+    "title": "Parameterized projection & what-if model definitions",
+    "purpose": "Formulas the explorable site binds sliders/toggles to. Every output is MODELED (not measured) and must be labelled 'your scenario' / 'modeled' in the UI. Base inputs trace to provenance.json.",
+    "created": "2026-06-30",
+    "note": "All money in USD billions unless noted. Year t indexed from base_year."
+  },
+  "models": [
+    {
+      "id": "cagr_projection",
+      "module": "Market-size scenario dial",
+      "label": "modeled",
+      "formula": "value(t) = base_value * (1 + cagr) ^ (t - base_year)",
+      "inputs": {
+        "base_value": { "default": 8.03, "min": 5.0, "max": 15.0, "unit": "USD_B", "source_ref": "fortune-2025-base" },
+        "base_year": { "default": 2025, "fixed_options": [2024, 2025, 2026] },
+        "cagr": { "default": 0.438, "min": 0.26, "max": 0.496, "step": 0.001, "source_ref": "cagr-spread", "note": "Bounds = real firm spread (Emergen 26.0% → Grand View 49.6%)." },
+        "horizon_year": { "default": 2034, "min": 2030, "max": 2035 }
+      },
+      "reference_bands": "Plot each firm's published (base→forecast) curve from market_size.json as static reference; the reader's curve is overlaid as 'your scenario'.",
+      "output": "Projected market value at horizon_year."
+    },
+    {
+      "id": "segment_reweight",
+      "module": "Segment treemap you can re-weight",
+      "label": "modeled",
+      "formula": "segment_value_i = total_market * weight_i ; constraint: sum(weight_i) = 1 (re-normalize on drag)",
+      "inputs": {
+        "total_market": { "default": 8.03, "unit": "USD_B", "source_ref": "fortune-2025-base" },
+        "weights": {
+          "note": "Default shares from the Sept-2025 doc are LEGACY/unverified and labelled as such until re-sourced; reader drags to re-weight.",
+          "default": { "algorithmic_trading": 0.337, "ai_call_centers": 0.30, "supply_chain": 0.257, "crypto_agents": 0.024, "other": 0.082 },
+          "provenance": "legacy_segment_split (unverified — flagged in provenance.json)"
+        }
+      },
+      "output": "Implied USD value per segment, recomputed live; renormalizes weights to sum 1."
+    },
+    {
+      "id": "x402_adoption",
+      "module": "x402 adoption simulator",
+      "label": "modeled",
+      "formula": "sim_volume = api_calls_per_year * pay_per_call_share * avg_price_usd",
+      "inputs": {
+        "api_calls_per_year": { "default": 1.0e12, "min": 1.0e9, "max": 1.0e13, "scale": "log", "note": "Reader-set assumption; no single authoritative source — clearly a what-if input." },
+        "pay_per_call_share": { "default": 0.01, "min": 0.0, "max": 1.0, "step": 0.005 },
+        "avg_price_usd": { "default": 0.01, "min": 0.001, "max": 1.0, "scale": "log" }
+      },
+      "real_anchor": { "ref": "x402_onchain_volume", "status": "pending_key", "note": "Compare sim to REAL x402 on-chain volume from Dune once stamped; until then show npm-downloads adoption proxy (x402 ≈ 1.08M/mo) as the live signal." },
+      "output": "Simulated annual micro-payment volume vs real on-chain anchor."
+    },
+    {
+      "id": "enterprise_scurve",
+      "module": "Enterprise-adoption S-curve",
+      "label": "modeled",
+      "formula": "adoption(t) = ceiling / (1 + exp(-k * (t - inflection_year)))",
+      "inputs": {
+        "ceiling": { "default": 0.65, "min": 0.2, "max": 1.0, "note": "Max enterprise-software share adopting agentic AI." },
+        "k": { "default": 0.9, "min": 0.2, "max": 2.0, "note": "Steepness." },
+        "inflection_year": { "default": 2027.5, "min": 2026, "max": 2032 }
+      },
+      "real_anchors": [
+        { "year": 2025, "value": 0.01, "source_ref": "gartner-adoption-2025", "note": "<1% today (LEGACY claim — re-source before publish)." },
+        { "year": 2028, "value": 0.33, "source_ref": "gartner-adoption-2028", "note": "~33% by 2028 (LEGACY claim — re-source before publish)." }
+      ],
+      "output": "Adoption % curve fit to anchor datapoints; reader moves inflection/ceiling."
+    },
+    {
+      "id": "build_your_future",
+      "module": "Build-your-future what-if (composite)",
+      "label": "modeled",
+      "formula": "value(2030) = base_value * (1 + effective_cagr) ^ (2030 - base_year) ; effective_cagr = base_cagr * adoption_speed * (1 - regulation_drag) * (1 + micropayment_boost)",
+      "inputs": {
+        "adoption_speed": { "default": 1.0, "min": 0.5, "max": 1.5, "note": "Multiplier on growth." },
+        "regulation_drag": { "default": 0.0, "min": 0.0, "max": 0.4 },
+        "micropayment_boost": { "default": 0.0, "min": 0.0, "max": 0.3, "note": "Uplift from x402 penetration." },
+        "base_value": { "default": 8.03, "source_ref": "fortune-2025-base" },
+        "base_cagr": { "default": 0.438, "source_ref": "cagr-spread" },
+        "base_year": { "default": 2025 }
+      },
+      "output": "Narrated 2030 outcome ('Under your assumptions the agent economy is ~$X B'). effective_cagr is clamped to [0.26, 0.55] to stay near the real evidence envelope."
+    }
+  ]
+}
