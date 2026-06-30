@@ -106,6 +106,24 @@
     border:1px solid var(--rule);border-radius:3px;background:var(--paper)}
   .tm-pct{font-family:var(--sans);font-size:13px;color:var(--ink-soft)}
 
+  /* M4 token-vs-traction table */
+  .tt{display:grid;gap:.35rem;margin:.6rem 0}
+  .tt-row{display:grid;grid-template-columns:2.4rem 1fr;align-items:center;gap:.6rem;
+    padding:.45rem .55rem;border:1px solid var(--rule);border-radius:3px;background:var(--paper);will-change:transform}
+  .tt-traction{border-style:dashed}
+  .tt-na{opacity:.62}
+  .tt-rank{font-size:14px;color:var(--ink-soft);text-align:right}
+  .tt-name{display:flex;flex-direction:column;line-height:1.15}
+  .tt-proj{font-family:var(--sans);font-size:15px;color:var(--ink)}
+  .tt-sym{font-size:11px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.04em}
+  .tt-cells{grid-column:2;display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem;margin-top:.35rem}
+  .tt-cell{display:flex;flex-direction:column;gap:.05rem;padding:.25rem .4rem;border-radius:2px;
+    border:1px solid transparent}
+  .tt-cell.on{background:#f3ece1;border-color:#d8b08c}
+  .tt-k{font-family:var(--sans);font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft)}
+  .tt-cell .tt-v{font-size:14px;color:var(--ink)}
+  .tt-implied{border-left:1px solid var(--rule)}
+
   /* M3 anchors */
   .anchors{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin:1rem 0}
   .anchor-card{background:var(--paper);border:1px solid var(--rule);border-radius:3px;padding:.7rem .85rem}

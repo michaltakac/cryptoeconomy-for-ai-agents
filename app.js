@@ -336,26 +336,237 @@ function buildM3(stage, data, models) {
 }
 
 /* ============================================================
- * M4 — Token-vs-traction (token_traction model def PENDING, PRD §6)
+ * M4 — Token-vs-traction explorer (token_traction, PRD §3 M4)
+ *
+ * Re-rank the same set of projects under three lenses — token market cap,
+ * npm installs/month, GitHub stars — to surface the price↔traction decoupling.
+ * Caps: CoinGecko (live → ai_agent_tokens.json snapshot) + TAO (bittensor.json).
+ * Traction: npm + GitHub (live → x402_adoption.json snapshot). No value invented:
+ * a row missing a metric shows 'n/a', never zero-filled.
  * ========================================================== */
-function buildM4(stage) {
+function buildM4(stage, data, models) {
+  const def = models.token_traction;
+  const m = def.inputs;
   const body = $(".stage-body", stage);
-  badge(stage, "blocked · model def pending", "pending");
-  body.append(
-    el("div", { class: "stub" }, [
-      el("p", { html: `<span class="warn-tag">PENDING MODEL DEF</span> This interactive is wired but waiting on one data dependency.` }),
-      el("p", { class: "figure-note", html:
-        `The re-rank logic (<span class="mono">implied_value = market_cap / max(traction, 1)</span>) needs the ` +
-        `<span class="mono">token_traction</span> model definition committed to <span class="mono">data/models.json</span> ` +
-        `(owned by the data-layer workstream, PRO-18 §6). The other five interactives below are live now; this one ` +
-        `lights up the moment that model def lands — no other change required.` }),
-      el("p", { class: "figure-note", html:
-        `What it will show, from already-committed data: elizaOS sinks near the bottom by token value yet climbs near the ` +
-        `top by developer use (≈82,600 installs/mo), while TAO (Bittensor, ${usdRaw(1946350563)}) and Virtuals reposition — ` +
-        `price and traction coming apart.` }),
-    ])
-  );
-  stageReadout(stage, "pending");
+  badge(stage, `CoinGecko + npm + GitHub · snapshot`, "snapshot");
+
+  // ---- rows assembled from the committed snapshots (the floor) ----
+  // Traction lookups from x402_adoption.json.
+  const npmBy = Object.fromEntries(data.x402_adoption.npm_downloads_last_month.map((d) => [d.package, d.downloads]));
+  const starsBy = Object.fromEntries(data.x402_adoption.github_repos.map((r) => [r.repo, r.stars]));
+  // Join: which token id maps to which npm package + GitHub repo. elizaOS is the
+  // one cap-bearing project that also has measured developer traction in today's data.
+  const TRACTION_JOIN = { elizaos: { npm: "@elizaos/core", gh: "elizaOS/eliza" } };
+
+  // Cap-bearing rows: AI-agent tokens (CoinGecko, tier:live) + TAO (CoinGecko via bittensor.json),
+  // each with traction attached where a join exists (else npm/stars stay null → 'n/a').
+  const tao = data.bittensor.tao_token;
+  const rows = data.ai_agent_tokens.tokens.map((t) => {
+    const j = TRACTION_JOIN[t.id];
+    return {
+      key: t.id, name: t.name, symbol: t.symbol.toUpperCase(), kind: "token",
+      cap: t.market_cap,
+      npm: j ? (npmBy[j.npm] ?? null) : null, stars: j ? (starsBy[j.gh] ?? null) : null,
+      npmSrc: j ? j.npm : null, ghSrc: j ? j.gh : null,
+    };
+  });
+  rows.push({ key: "bittensor", name: "Bittensor", symbol: "TAO", kind: "token",
+    cap: tao.market_cap_usd, npm: null, stars: null, npmSrc: null, ghSrc: null });
+
+  // Traction-only row: x402 is the rail itself — huge developer traction, no token,
+  // so cap = n/a (honest, never zero-filled).
+  rows.push({ key: "x402", name: "x402", symbol: "rails", kind: "traction",
+    cap: null, npm: npmBy["x402"] ?? null, stars: starsBy["x402-foundation/x402"] ?? null,
+    npmSrc: "x402", ghSrc: "x402-foundation/x402" });
+
+  // ---- lenses + metric accessors ----
+  const LENSES = {
+    market_cap_usd:      { label: "Token cap",        col: "cap",   short: "cap" },
+    npm_downloads_month: { label: "npm installs / mo", col: "npm",   short: "installs/mo" },
+    github_stars:        { label: "GitHub stars",      col: "stars", short: "stars" },
+  };
+  let lens = m.rank_metric.default; // "market_cap_usd"
+  let hype = m.hype_discount.default; // 0
+
+  const effCap = (row) => (row.cap == null ? null : row.cap * (1 - hype));
+  const metricVal = (row, ln) => {
+    if (ln === "market_cap_usd") return effCap(row);
+    return row[LENSES[ln].col]; // npm | stars (null = n/a)
+  };
+  // implied_value = effective_cap / max(traction_metric, 1); traction = the chosen
+  // dev-use lens, or npm (else stars) as the default proxy under the cap lens.
+  const tractionDenom = (row, ln) => {
+    if (ln === "npm_downloads_month") return row.npm;
+    if (ln === "github_stars") return row.stars;
+    return row.npm != null ? row.npm : row.stars;
+  };
+  const tractionUnit = (ln) => (ln === "github_stars" ? "star" : "install");
+  const impliedVal = (row, ln) => {
+    const c = effCap(row), tr = tractionDenom(row, ln);
+    if (c == null || tr == null) return null;
+    return c / Math.max(tr, 1);
+  };
+  const fmtMetric = (v, ln) => {
+    if (v == null) return "n/a";
+    return ln === "market_cap_usd" ? usdRaw(v) : intl(v);
+  };
+
+  // ---- controls ----
+  const ctls = el("div", { class: "controls" });
+  const seg = el("div", { class: "seg", role: "radiogroup", "aria-label": "Rank lens" });
+  Object.entries(LENSES).forEach(([k, v]) => {
+    const btn = el("button", { type: "button", class: "seg-btn" + (k === lens ? " on" : ""),
+      role: "radio", "aria-checked": String(k === lens), text: v.label });
+    btn.addEventListener("click", () => {
+      lens = k;
+      [...seg.children].forEach((c, i) => {
+        const on = Object.keys(LENSES)[i] === lens;
+        c.classList.toggle("on", on); c.setAttribute("aria-checked", String(on));
+      });
+      render(true);
+    });
+    seg.append(btn);
+  });
+  const segWrap = el("div", { class: "ctl" }, [el("span", { class: "ctl-label", text: "Rank by" }), seg]);
+  const cHype = slider(stage, { id: "m4-hype", label: "Hype discount (re-price caps toward fundamentals)",
+    min: m.hype_discount.min, max: m.hype_discount.max, step: m.hype_discount.step, value: m.hype_discount.default,
+    format: (v) => (v === 0 ? "0% — caps as quoted" : `−${pct(v, 0)} on every token cap`) });
+  cHype.input.addEventListener("input", () => { hype = cHype.get(); cHype.sync(); render(false); });
+  ctls.append(segWrap, cHype.wrap);
+  body.append(ctls);
+
+  // ---- table ----
+  const list = el("div", { class: "tt" });
+  body.append(list);
+  const rowEls = new Map(); // key -> { node, rank, cells:{cap,npm,stars}, implied }
+  rows.forEach((row) => {
+    const rank = el("span", { class: "tt-rank mono" });
+    const cap = el("span", { class: "tt-v mono" });
+    const npm = el("span", { class: "tt-v mono" });
+    const stars = el("span", { class: "tt-v mono" });
+    const implied = el("span", { class: "tt-v mono" });
+    const capCell = el("div", { class: "tt-cell", "data-lens": "market_cap_usd" },
+      [el("span", { class: "tt-k", text: "cap" }), cap]);
+    const npmCell = el("div", { class: "tt-cell", "data-lens": "npm_downloads_month" },
+      [el("span", { class: "tt-k", text: "installs/mo" }), npm]);
+    const starCell = el("div", { class: "tt-cell", "data-lens": "github_stars" },
+      [el("span", { class: "tt-k", text: "stars" }), stars]);
+    const impCell = el("div", { class: "tt-cell tt-implied" },
+      [el("span", { class: "tt-k", text: "cap ÷ use" }), implied]);
+    const node = el("div", { class: `tt-row tt-${row.kind}`, "data-key": row.key }, [
+      rank,
+      el("div", { class: "tt-name" }, [
+        el("span", { class: "tt-proj", text: row.name }),
+        el("span", { class: "tt-sym mono", text: row.symbol }),
+      ]),
+      el("div", { class: "tt-cells" }, [capCell, npmCell, starCell, impCell]),
+    ]);
+    list.append(node);
+    rowEls.set(row.key, { node, rank, cells: { market_cap_usd: capCell, npm_downloads_month: npmCell, github_stars: starCell }, cap, npm, stars, implied });
+  });
+
+  // honesty / provenance carry-over (PRD §3 M4 + model real_anchor note)
+  body.append(el("p", { class: "honesty", html:
+    `<span class="warn-tag">Modeled lens · live+snapshot data</span> Caps are CoinGecko (live, falls back to a ${SNAPSHOT_DATE} snapshot); ` +
+    `installs are npm last-month; stars are GitHub. A project missing a metric shows <span class="mono">n/a</span> — never zero. ` +
+    `<span class="mono">cap ÷ use</span> only computes for a project that has <i>both</i> a token cap and measured developer traction — ` +
+    `today that's <b>elizaOS</b> alone (≈${usdRaw(4017187)} cap over ~82.6k installs/mo), while x402's traction carries no token at all. That gap is the decoupling.` }));
+
+  // ---- render with FLIP re-rank animation ----
+  function sortedKeys() {
+    const withVal = rows.map((r) => ({ r, v: metricVal(r, lens) }));
+    withVal.sort((a, b) => {
+      const an = a.v == null, bn = b.v == null;
+      if (an && bn) return a.r.name.localeCompare(b.r.name); // n/a rows: stable by name, at bottom
+      if (an) return 1;
+      if (bn) return -1;
+      return b.v - a.v;
+    });
+    return withVal.map((x) => x.r.key);
+  }
+
+  function render(animate) {
+    const order = sortedKeys();
+    const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+
+    // FLIP: measure first positions
+    const first = new Map();
+    if (animate && !reduce) rowEls.forEach((ref, key) => first.set(key, ref.node.getBoundingClientRect().top));
+
+    // reorder DOM + update active-lens highlight + values
+    order.forEach((key, i) => {
+      const row = rows.find((r) => r.key === key);
+      const ref = rowEls.get(key);
+      list.append(ref.node);
+      const mv = metricVal(row, lens);
+      ref.rank.textContent = mv == null ? "—" : `#${i + 1}`;
+      ref.node.classList.toggle("tt-na", mv == null);
+      ref.cap.textContent = fmtMetric(effCap(row), "market_cap_usd");
+      ref.npm.textContent = fmtMetric(row.npm, "npm_downloads_month");
+      ref.stars.textContent = fmtMetric(row.stars, "github_stars");
+      const imp = impliedVal(row, lens);
+      ref.implied.textContent = imp == null ? "n/a" : `${usdRaw(imp)}/${tractionUnit(lens)}`;
+      Object.entries(ref.cells).forEach(([k, cell]) => cell.classList.toggle("on", k === lens));
+    });
+
+    // FLIP: invert + play
+    if (animate && !reduce) {
+      rowEls.forEach((ref, key) => {
+        const delta = (first.get(key) ?? 0) - ref.node.getBoundingClientRect().top;
+        if (delta) {
+          ref.node.style.transition = "none";
+          ref.node.style.transform = `translateY(${delta}px)`;
+          requestAnimationFrame(() => {
+            ref.node.style.transition = "transform .4s cubic-bezier(.2,.7,.2,1)";
+            ref.node.style.transform = "";
+          });
+        }
+      });
+    }
+
+    const top = rows.find((r) => r.key === order[0]);
+    const ln = LENSES[lens];
+    stageReadout(stage, `${ln.label}: ${top.name}`);
+    ariaAnnounce(stage, `Ranked by ${ln.label}${hype > 0 ? `, caps discounted ${pct(hype, 0)}` : ""}. Top project ${top.name}.`);
+  }
+  render(false);
+
+  // ---- live enrichment (best-effort; snapshot stays if any call fails) ----
+  (async () => {
+    let live = false;
+    const byId = Object.fromEntries(rows.map((r) => [r.key, r]));
+    const tryUpdate = async (label, fn) => { try { if (await fn()) live = true; } catch { /* keep snapshot */ } };
+
+    await Promise.all([
+      // CoinGecko caps for AI-agent tokens
+      tryUpdate("coingecko", async () => {
+        const j = await liveFetch(data.ai_agent_tokens._meta.endpoint);
+        if (!Array.isArray(j)) return false;
+        let hit = false;
+        j.forEach((c) => { if (byId[c.id] && typeof c.market_cap === "number") { byId[c.id].cap = c.market_cap; hit = true; } });
+        return hit;
+      }),
+      // npm last-month for each tracked package
+      ...["@elizaos/core", "x402"].map((pkg) => tryUpdate("npm", async () => {
+        const j = await liveFetch(`https://api.npmjs.org/downloads/point/last-month/${pkg}`);
+        if (!j || typeof j.downloads !== "number") return false;
+        const r = rows.find((x) => x.npmSrc === pkg); if (r) { r.npm = j.downloads; return true; }
+        return false;
+      })),
+      // GitHub stars for each tracked repo
+      ...["elizaOS/eliza", "x402-foundation/x402"].map((repo) => tryUpdate("github", async () => {
+        const j = await liveFetch(`https://api.github.com/repos/${repo}`);
+        if (!j || typeof j.stargazers_count !== "number") return false;
+        const r = rows.find((x) => x.ghSrc === repo); if (r) { r.stars = j.stargazers_count; return true; }
+        return false;
+      })),
+    ]);
+
+    if (live) {
+      render(false);
+      badge(stage, `live · ${new Date().toISOString().slice(11, 16)} UTC`, "live");
+    }
+  })();
 }
 
 /* ============================================================
@@ -483,7 +694,7 @@ async function boot() {
   buildM1($("#m1"), data, models);
   buildM2($("#m2"), models);
   buildM3($("#m3"), data, models);
-  buildM4($("#m4"));
+  buildM4($("#m4"), data, models);
   buildM5($("#m5"), models);
   buildM6($("#m6"), models);
 
