@@ -69,3 +69,19 @@ PRO-25 stays **blocked** by the fix issue. On `issue_blockers_resolved`, re-run:
 3. M5 anchors cite verified ids; no "re-source before publish" banner; 2024 lower anchor.
 4. Footer caveats match the shipped state.
 Then mark PRO-25 `done` to release PRO-26.
+
+---
+
+## 5. QA sign-off — re-verification 2026-06-30 (PASS)
+
+Fixes landed in `acd19ce` (PRO-29, M4) + `14a957d` (PRO-30, F2/F3/F4). Re-verified against the §4 plan:
+
+| Finding | Status | Evidence |
+|---|---|---|
+| F1 M4 read-only stub | ✅ fixed | `buildM4(stage,data,models)` now renders a lens radiogroup (Token cap / npm installs / GitHub stars) + `hype_discount` slider with live re-rank; no "blocked" badge. Rows join committed snapshots; missing metric → `n/a` (TAO npm/stars, x402 cap) — never zero-filled. |
+| F2 elizaOS "$4M" unsourced | ✅ fixed | `provenance.json#cg-elizaos-mcap` = 4,017,187 (verified CoinGecko) + `ai_agent_tokens.json` `elizaos` row; `usdRaw` → "$4.0M" matches the Act IV figure. |
+| F3 M5 superseded anchors | ✅ fixed | `models.json#enterprise_scurve.real_anchors` → `gartner-share-2028-verified`; banner now "verified Gartner anchors"; chart labels "(verified)"; footer caveat corrected (only segment split flagged). |
+| F4 year mismatch | ✅ fixed | `index.html:280` now "under 1% in 2024". |
+
+All 6 modules now explorable; every rendered figure ties to a ledger entry; design + resilience + links + plain-language unchanged-pass. F5/F6 are non-blocking notes. **PRO-25 → done; PRO-26 (publish) released.**
+
